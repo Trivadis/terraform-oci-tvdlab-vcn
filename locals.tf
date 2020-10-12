@@ -18,10 +18,12 @@
 # ---------------------------------------------------------------------------
 
 locals {
-  vcn_shortname = replace(var.vcn_name, "-", "")
-}
-
-locals {
-  anywhere = "0.0.0.0/0"
+  all_protocols   = "all"
+  icmp_protocol   = 1
+  tcp_protocol    = 6
+  ssh_port        = 22
+  rdp_port        = 3389
+  anywhere        = "0.0.0.0/0"
+  vcn_shortname   = replace(var.vcn_name, "-", "")
 }
 # --- EOF -------------------------------------------------------------------
