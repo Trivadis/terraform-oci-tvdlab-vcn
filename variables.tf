@@ -17,7 +17,6 @@
 # see git revision history for more information on changes/updates
 # ---------------------------------------------------------------------------
 
-# - Input Variables ---------------------------------------------------------
 # provider identity parameters
 variable "region" {
     # List of regions: https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm#ServiceAvailabilityAcrossRegions
@@ -72,6 +71,14 @@ variable "vcn_name" {
     type        = string
 }
 
+# variable "tags" {
+#   description = "simple key-value pairs to tag the resources created"
+#   type        = map(any)
+#   default = {
+#     environment = "dev"
+#   }
+# }
+
 # Trivadis LAB specific parameter
 variable "tvd_participants" {
     description = "The number of VCN to create"
@@ -96,11 +103,4 @@ variable "tvd_dns2" {
     type        = string
     default     = "8.8.8.8" 
 }
-# - End of Input Variables --------------------------------------------------
-
-# - Local Variables ---------------------------------------------------------
-locals {
-  vcn_shortname = replace(var.vcn_name, "-", "")
-}
-# - End of Local Variables --------------------------------------------------
 # --- EOF -------------------------------------------------------------------
