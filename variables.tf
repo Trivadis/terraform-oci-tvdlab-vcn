@@ -61,6 +61,12 @@ variable "vcn_cidr" {
     type        = string
 }
 
+variable "vcn_internal_cidr" {
+    description = "cidr block of VCN"
+    default     = "10.0.1.0/29"
+    type        = string
+}
+
 variable "vcn_dns_label" {
     description = "A DNS label for the VCN, used in conjunction with the VNIC's hostname and subnet's DNS label to form a fully qualified domain name (FQDN) for each VNIC within this subnet"
     type        = string
