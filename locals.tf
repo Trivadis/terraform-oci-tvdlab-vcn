@@ -18,12 +18,13 @@
 # ---------------------------------------------------------------------------
 
 locals {
-  all_protocols   = "all"
-  icmp_protocol   = 1
-  tcp_protocol    = 6
-  ssh_port        = 22
-  rdp_port        = 3389
-  anywhere        = "0.0.0.0/0"
-  vcn_shortname   = replace(var.vcn_name, "-", "")
+  all_protocols       = "all"
+  icmp_protocol       = 1
+  tcp_protocol        = 6
+  ssh_port            = 22
+  rdp_port            = 3389
+  anywhere            = "0.0.0.0/0"
+  vcn_shortname       = lower(replace(var.vcn_name, "-", ""))
+  default_private_dns = cidrhost(cidrsubnet(var.vcn_cidr, var.private_newbits, var.private_netnum), var.tvd_dns_hostnum)
 }
 # --- EOF -------------------------------------------------------------------
