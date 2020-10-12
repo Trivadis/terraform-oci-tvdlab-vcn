@@ -32,7 +32,7 @@ resource "oci_core_route_table" "private_route_table" {
     count           = var.nat_gateway_enabled == true ? var.tvd_participants : 0
     compartment_id  = var.compartment_id
     #display_name   = var.label_prefix == "none" ? "nat-route" : "${var.label_prefix}-nat-route"
-    display_name    = format(lower("${var.vcn_name}%02d nat route"), count.index)
+    display_name    = format(lower("${var.vcn_name}%02d private route"), count.index)
     vcn_id          = oci_core_vcn.vcn.*.id[count.index]
     #freeform_tags = var.tags
 

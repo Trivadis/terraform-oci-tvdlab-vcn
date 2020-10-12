@@ -66,7 +66,7 @@ resource "oci_core_default_security_list" "default_security_list" {
     ingress_security_rules {
         description = "Allow all traffic in private subnet"
         protocol    = local.all_protocols
-        source      = var.vcn_internal_cidr
+        source      = var.vcn_cidr
     }
 
     # Allow ICMP traffic locally

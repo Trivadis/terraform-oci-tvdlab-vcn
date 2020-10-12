@@ -39,13 +39,13 @@ variable "label_prefix" {
 # vcn parameters
 variable "internet_gateway_enabled" {
     description = "whether to create the internet gateway"
-    default     = false
+    default     = true
     type        = bool
 }
 
 variable "nat_gateway_enabled" {
     description = "whether to create a nat gateway in the vcn"
-    default     = false
+    default     = true
     type        = bool
 }
 
@@ -61,9 +61,15 @@ variable "vcn_cidr" {
     type        = string
 }
 
-variable "vcn_internal_cidr" {
+variable "vcn_private_cidr" {
     description = "cidr block of VCN"
     default     = "10.0.1.0/29"
+    type        = string
+}
+
+variable "vcn_public_cidr" {
+    description = "cidr block of VCN"
+    default     = "10.0.0.0/29"
     type        = string
 }
 

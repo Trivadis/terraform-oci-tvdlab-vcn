@@ -20,7 +20,7 @@
 resource "oci_core_subnet" "public_subnet" {
     count               = var.internet_gateway_enabled == true ? var.tvd_participants : 0
     compartment_id      = var.compartment_id
-    cidr_block          = var.vcn_cidr
+    cidr_block          = var.vcn_public_cidr
     display_name        = format(lower("${var.vcn_name}%02d public subnet"), count.index)
     dns_label           = "public"
     vcn_id              = oci_core_vcn.vcn.*.id[count.index]
@@ -33,7 +33,7 @@ resource "oci_core_subnet" "public_subnet" {
 resource "oci_core_subnet" "private_subnet" {
     count                       = var.nat_gateway_enabled == true ? var.tvd_participants : 0
     compartment_id              = var.compartment_id
-    cidr_block                  = var.vcn_internal_cidr
+    cidr_block                  = var.vcn_private_cidr
     display_name                = format(lower("${var.vcn_name}%02d private subnet"), count.index)
     dns_label                   = "private"
     prohibit_public_ip_on_vnic  = true
