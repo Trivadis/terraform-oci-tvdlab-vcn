@@ -79,12 +79,6 @@ variable "public_newbits" {
   type        = number
 }
 
-variable "public_dns_label" {
-    description = "A DNS label for the VCN, used in conjunction with the VNIC's hostname and subnet's DNS label to form a fully qualified domain name (FQDN) for each VNIC within this subnet"
-    default     = "public"
-    type        = string
-}
-
 # private subnet
 variable "private_netnum" {
   description = "0-based index of the private subnet when the VCN's CIDR is masked with the corresponding newbit value."
@@ -96,12 +90,6 @@ variable "private_newbits" {
   description = "The difference between the VCN's netmask and the desired private subnet mask"
   default     = 8
   type        = number
-}
-
-variable "private_dns_label" {
-    description = "A DNS label for the VCN, used in conjunction with the VNIC's hostname and subnet's DNS label to form a fully qualified domain name (FQDN) for each VNIC within this subnet"
-    default     = "private"
-    type        = string
 }
 
 variable "tags" {
