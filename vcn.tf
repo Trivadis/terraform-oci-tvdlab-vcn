@@ -19,74 +19,76 @@
 
 # VCN resource --------------------------------------------------------------
 resource "oci_core_vcn" "vcn" {
-  count           = var.tvd_participants
-  cidr_block      = var.vcn_cidr
-  compartment_id  = var.compartment_id
-  #display_name    = var.label_prefix == "none" ? var.vcn_name : "${var.label_prefix}-${var.vcn_name}"
-  display_name    = format(lower("${var.vcn_name}%02d"), count.index)
-  dns_label       = format(lower("${local.vcn_shortname}%02d"), count.index)
-
-  #freeform_tags   = var.tags
+  count          = var.tvd_participants
+  cidr_block     = var.vcn_cidr
+  compartment_id = var.compartment_id
+  display_name   = var.label_prefix == "none" ? format("${local.vcn_shortname}%02d", count.index) : format("${var.label_prefix} ${local.vcn_shortname}%02d", count.index)
+  dns_label      = format("${local.vcn_shortname}%02d", count.index)
+  freeform_tags  = var.tags
 }
 
 # create public DHCP option -------------------------------------------------
 resource "oci_core_default_dhcp_options" "public_dhcp_option" {
-  count                       = var.tvd_participants
-  manage_default_resource_id  = oci_core_vcn.vcn.*.default_dhcp_options_id[count.index]
-  display_name                = format(lower("${var.vcn_name}%02d public dhcp"), count.index)
+  count                      = var.tvd_participants
+  manage_default_resource_id = oci_core_vcn.vcn.*.default_dhcp_options_id[count.index]
+  display_name               = var.label_prefix == "none" ? format("${local.vcn_shortname}%02d public dhcp", count.index) : format("${var.label_prefix} ${local.vcn_shortname}%02d public dhcp", count.index)
+
   options {
     custom_dns_servers = []
-    server_type = "VcnLocalPlusInternet"
-    type        = "DomainNameServer"
+    server_type        = "VcnLocalPlusInternet"
+    type               = "DomainNameServer"
   }
 
   options {
     search_domain_names = [
-      format(lower("${local.vcn_shortname}%02d.oraclevcn.com"), count.index),
+      format("${local.vcn_shortname}%02d.oraclevcn.com", count.index),
     ]
-
-    #server_type = <<Optional value not found in discovery>>
     type = "SearchDomain"
   }
 }
 
 # create private DHCP option ------------------------------------------------
 resource "oci_core_dhcp_options" "private_dhcp_option" {
-  count           = var.tvd_participants
-  compartment_id  = var.compartment_id
-  vcn_id          = oci_core_vcn.vcn.*.id[count.index]
-  display_name    = format(lower("${var.vcn_name}%02d private dhcp"), count.index)
+  count          = var.tvd_participants
+  compartment_id = var.compartment_id
+  vcn_id         = oci_core_vcn.vcn.*.id[count.index]
+  display_name   = var.label_prefix == "none" ? format("${local.vcn_shortname}%02d private dhcp", count.index) : format("${var.label_prefix} ${local.vcn_shortname}%02d private dhcp", count.index)
+
   # domain names server
   options {
-    type = "DomainNameServer"
+    type        = "DomainNameServer"
     server_type = "CustomDnsServer"
-    custom_dns_servers = [ var.tvd_dns1, var.tvd_dns2 ]
+    custom_dns_servers = [
+
+      var.tvd_private_dns == "default" ? local.default_private_dns : var.tvd_private_dns,
+      var.tvd_public_dns
+    ]
   }
 
   # search domain
   options {
-    type = "SearchDomain"
-    search_domain_names = [ var.tvd_domain ]
+    type                = "SearchDomain"
+    search_domain_names = [var.tvd_domain]
   }
 }
 
 # create the internet gateway resource --------------------------------------
 resource "oci_core_internet_gateway" "igw" {
-  count = var.internet_gateway_enabled == true ? var.tvd_participants : 0
-  compartment_id  = var.compartment_id
-  display_name    = format(lower("vcn-${var.vcn_name}%02d_igw"), count.index)
-  vcn_id          = oci_core_vcn.vcn.*.id[count.index]
-  enabled         = "true"
-  #freeform_tags = var.tags
+  count          = var.internet_gateway_enabled == true ? var.tvd_participants : 0
+  compartment_id = var.compartment_id
+  display_name   = var.label_prefix == "none" ? format("${local.vcn_shortname}%02d_igw", count.index) : format("${var.label_prefix} ${local.vcn_shortname}%02d_igw", count.index)
+
+  vcn_id        = oci_core_vcn.vcn.*.id[count.index]
+  enabled       = "true"
+  freeform_tags = var.tags
 }
 
 # create a default routing table --------------------------------------------
 resource "oci_core_default_route_table" "default_route_table" {
-  count                       = var.internet_gateway_enabled == true ? var.tvd_participants : 0
-  #display_name   = var.label_prefix == "none" ? "internet-route" : "${var.label_prefix}-internet-route"
-  display_name                = format(lower("${var.vcn_name}%02d internet route"), count.index)
-  manage_default_resource_id  = oci_core_vcn.vcn.*.default_route_table_id[count.index]
-  #freeform_tags = var.tags
+  count        = var.internet_gateway_enabled == true ? var.tvd_participants : 0
+  display_name = var.label_prefix == "none" ? format("${local.vcn_shortname}%02d internet route", count.index) : format("${var.label_prefix} ${local.vcn_shortname}%02d internet route", count.index)
+  manage_default_resource_id = oci_core_vcn.vcn.*.default_route_table_id[count.index]
+  freeform_tags              = var.tags
 
   route_rules {
     destination       = local.anywhere
