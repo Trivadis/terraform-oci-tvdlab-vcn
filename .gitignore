@@ -13,3 +13,4 @@ provider.tf
 
 # visual code
  **/.vscode/*
+**/*.DS_Store
