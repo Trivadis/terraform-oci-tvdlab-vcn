@@ -18,28 +18,28 @@
 # ---------------------------------------------------------------------------
 # create public subnet ------------------------------------------------------
 resource "oci_core_subnet" "public_subnet" {
-    count               = var.internet_gateway_enabled == true ? var.tvd_participants : 0
-    compartment_id      = var.compartment_id
-    cidr_block          = var.vcn_public_cidr
-    display_name        = format(lower("${var.vcn_name}%02d public subnet"), count.index)
-    dns_label           = "public"
-    vcn_id              = oci_core_vcn.vcn.*.id[count.index]
-    security_list_ids   = [oci_core_vcn.vcn.*.default_security_list_id[count.index]]
-    route_table_id      = oci_core_vcn.vcn.*.default_route_table_id[count.index]
-    dhcp_options_id     = oci_core_vcn.vcn.*.default_dhcp_options_id[count.index]
+  count             = var.internet_gateway_enabled == true ? var.tvd_participants : 0
+  compartment_id    = var.compartment_id
+  cidr_block        = cidrsubnet(var.vcn_cidr, var.public_newbits, var.public_netnum)
+  display_name      = var.label_prefix == "none" ? format("${local.vcn_shortname}%02d public subnet", count.index) : format("${var.label_prefix} ${local.vcn_shortname}%02d public subnet", count.index)
+  dns_label         = var.public_dns_label
+  vcn_id            = oci_core_vcn.vcn.*.id[count.index]
+  security_list_ids = [oci_core_vcn.vcn.*.default_security_list_id[count.index]]
+  route_table_id    = oci_core_vcn.vcn.*.default_route_table_id[count.index]
+  dhcp_options_id   = oci_core_vcn.vcn.*.default_dhcp_options_id[count.index]
 }
 
 # create private subnet -----------------------------------------------------
 resource "oci_core_subnet" "private_subnet" {
-    count                       = var.nat_gateway_enabled == true ? var.tvd_participants : 0
-    compartment_id              = var.compartment_id
-    cidr_block                  = var.vcn_private_cidr
-    display_name                = format(lower("${var.vcn_name}%02d private subnet"), count.index)
-    dns_label                   = "private"
-    prohibit_public_ip_on_vnic  = true
-    vcn_id                      = oci_core_vcn.vcn.*.id[count.index]
-    security_list_ids           = [oci_core_vcn.vcn.*.default_security_list_id[count.index]]
-    route_table_id              = oci_core_route_table.private_route_table.*.id[count.index]
-    dhcp_options_id             = oci_core_dhcp_options.private_dhcp_option.*.id[count.index]
+  count                      = var.nat_gateway_enabled == true ? var.tvd_participants : 0
+  compartment_id             = var.compartment_id
+  cidr_block                 = cidrsubnet(var.vcn_cidr, var.private_newbits, var.private_netnum)
+  display_name               = var.label_prefix == "none" ? format("${local.vcn_shortname}%02d private subnet", count.index) : format("${var.label_prefix} ${local.vcn_shortname}%02d private subnet", count.index)
+  dns_label                  = var.private_dns_label
+  prohibit_public_ip_on_vnic = true
+  vcn_id                     = oci_core_vcn.vcn.*.id[count.index]
+  security_list_ids          = [oci_core_vcn.vcn.*.default_security_list_id[count.index]]
+  route_table_id             = oci_core_route_table.private_route_table.*.id[count.index]
+  dhcp_options_id            = oci_core_dhcp_options.private_dhcp_option.*.id[count.index]
 }
 # --- EOF -------------------------------------------------------------------

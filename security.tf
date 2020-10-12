@@ -18,62 +18,70 @@
 # ---------------------------------------------------------------------------
 # create default security list
 resource "oci_core_default_security_list" "default_security_list" {
-    count                       = var.tvd_participants
-    manage_default_resource_id  = oci_core_vcn.vcn.*.default_security_list_id[count.index]
-    display_name                = format(lower("${var.vcn_name}%02d default security list"), count.index)
-    # allow outbound tcp traffic on all ports
-    egress_security_rules {
-        protocol    = local.all_protocols
-        destination = local.anywhere
+  count                      = var.tvd_participants
+  manage_default_resource_id = oci_core_vcn.vcn.*.default_security_list_id[count.index]
+  display_name               = var.label_prefix == "none" ? format("${local.vcn_shortname}%02d default security list", count.index) : format("${var.label_prefix} ${local.vcn_shortname}%02d default security list", count.index)
+
+  # allow outbound tcp traffic on all ports
+  egress_security_rules {
+    protocol    = local.all_protocols
+    destination = local.anywhere
+  }
+
+  # allow inbound SSH traffic
+  ingress_security_rules {
+    description = "Allow inbound SSH traffic"
+    protocol    = local.tcp_protocol
+    source      = local.anywhere
+
+    tcp_options {
+      min = local.ssh_port
+      max = local.ssh_port
     }
+  }
 
-    # allow inbound SSH traffic
-    ingress_security_rules {
-        description = "Allow inbound SSH traffic"
-        protocol    = local.tcp_protocol
-        source      = local.anywhere
+  # allow inbound SSH traffic
+  ingress_security_rules {
+    description = "Allow RDP traffic in subnets"
+    protocol    = local.tcp_protocol
+    source      = var.vcn_cidr
 
-        tcp_options {
-            min = local.ssh_port
-            max = local.ssh_port
-        }
+    tcp_options {
+      min = local.rdp_port
+      max = local.rdp_port
     }
+  }
 
-    # allow inbound SSH traffic
-    ingress_security_rules {
-        description = "Allow RDP traffic in subnets"
-        protocol = local.tcp_protocol
-        source   = var.vcn_cidr
+  # default
+  ingress_security_rules {
+    protocol = local.icmp_protocol
+    source   = local.anywhere
 
-        tcp_options {
-            min = local.rdp_port
-            max = local.rdp_port
-        }
+    icmp_options {
+      code = 4
+      type = 3
     }
+  }
 
-    # default
-    ingress_security_rules {
-        protocol    = local.icmp_protocol
-        source      = local.anywhere
+  # allow all internal traffic in private subnet
+  ingress_security_rules {
+    description = "Allow all traffic in private subnet"
+    protocol    = local.all_protocols
+    source      = var.vcn_cidr
+  }
 
-        icmp_options {
-            code    = 4
-            type    = 3
-        }
-    }
+  # allow all internal traffic in private subnet
+  ingress_security_rules {
+    description = "Allow all traffic in private subnet"
+    protocol    = local.all_protocols
+    source      = cidrsubnet(var.vcn_cidr, var.private_newbits, var.private_netnum)
+  }
 
-    # allow all internal traffic in private subnet
-    ingress_security_rules {
-        description = "Allow all traffic in private subnet"
-        protocol    = local.all_protocols
-        source      = var.vcn_cidr
-    }
-
-    # Allow ICMP traffic locally
-    ingress_security_rules {
-        description = "Allow ICMP traffic locally not sure"
-        protocol    = local.icmp_protocol
-        source      = var.vcn_cidr
-    }
+  # Allow ICMP traffic locally
+  ingress_security_rules {
+    description = "Allow ICMP traffic locally not sure"
+    protocol    = local.icmp_protocol
+    source      = var.vcn_cidr
+  }
 }
 # --- EOF -------------------------------------------------------------------
