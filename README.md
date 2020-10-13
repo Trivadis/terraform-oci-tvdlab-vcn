@@ -1,4 +1,4 @@
-# Terraform Trivadis LAB VCN for Oracle Cloud Infrastructure
+# Terraform Trivadis LAB VCN for OCI
 
 ## Introduction
 
@@ -10,6 +10,7 @@ It creates the following resources:
 * An optional internet gateway
 * An optional NAT gateway
 * An optional service gateway
+* Optional n-number of VCNs. This is used to build several identical environments for a training and laboratory environment.
 
 The module can be parametrized by the number of participants. This will then create n-VCNs.
 
