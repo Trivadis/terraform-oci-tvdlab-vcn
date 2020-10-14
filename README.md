@@ -12,7 +12,8 @@ It creates the following resources:
 * An optional service gateway
 * Optional n-number of VCNs. This is used to build several identical environments for a training and laboratory environment.
 
-The module can be parametrized by the number of participants. This will then create n-VCNs.
+The module can be parametrized by the number of participants. This will then create n-VCNs.  The following figure shows a VCN for the compartment O-SEC. i.e. `resource_name` has been derivated from compartment name.
+
 
 ![VCN architecture overview](https://github.com/Trivadis/terraform-oci-tvdlab-vcn/raw/main/doc/images/architecture.png)
 
