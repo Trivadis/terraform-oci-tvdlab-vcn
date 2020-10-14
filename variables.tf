@@ -17,26 +17,38 @@
 # see git revision history for more information on changes/updates
 # ---------------------------------------------------------------------------
 
-# provider identity parameters
+# provider identity parameters ----------------------------------------------
 variable "region" {
-    # List of regions: https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm#ServiceAvailabilityAcrossRegions
-    description = "The OCI region where resources will be created"
-    type        = string
+  # List of regions: https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm#ServiceAvailabilityAcrossRegions
+  description = "The OCI region where resources will be created"
+  type        = string
 }
 
-# general oci parameters
+# general oci parameters ----------------------------------------------------
 variable "compartment_id" {
-    description = "OCID of the tcompartment where to create all resources"
-    type        = string
+  description = "OCID of the compartment where to create all resources"
+  type        = string
 }
 
 variable "label_prefix" {
-    description = "A string that will be prepended to all resources"
-    type        = string
-    default     = "none"
+  description = "A string that will be prepended to all resources"
+  type        = string
+  default     = "none"
 }
 
-# vcn parameters
+variable "resource_name" {
+  description = "user-friendly string to name all resource. If undefined it will be derived from compartment name. "
+  type        = string
+  default     = ""
+}
+
+variable "tags" {
+  description = "A simple key-value pairs to tag the resources created"
+  type        = map(any)
+  default     = {}
+}
+
+# VCN parameters ------------------------------------------------------------
 variable "internet_gateway_enabled" {
     description = "whether to create the internet gateway"
     default     = true
@@ -61,12 +73,7 @@ variable "vcn_cidr" {
     type        = string
 }
 
-variable "vcn_name" {
-    description = "user-friendly name of to use for the vcn to be appended to the label_prefix"
-    type        = string
-}
-
-# public/bastion subnet
+# Public Subnet parameters --------------------------------------------------
 variable "public_netnum" {
   description = "0-based index of the bastion subnet when the VCN's CIDR is masked with the corresponding newbit value."
   default     = 0
@@ -79,7 +86,7 @@ variable "public_newbits" {
   type        = number
 }
 
-# private subnet
+# Private Subnet parameters -------------------------------------------------
 variable "private_netnum" {
   description = "0-based index of the private subnet when the VCN's CIDR is masked with the corresponding newbit value."
   default     = 1
@@ -92,15 +99,7 @@ variable "private_newbits" {
   type        = number
 }
 
-variable "tags" {
-  description = "simple key-value pairs to tag the resources created"
-  type        = map(any)
-  default = {
-    environment = "dev"
-  }
-}
-
-# Trivadis LAB specific parameter
+# Trivadis LAB specific parameter -------------------------------------------
 variable "tvd_participants" {
     description = "The number of VCNs to create"
     type        = number
