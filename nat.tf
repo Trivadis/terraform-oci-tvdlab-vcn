@@ -13,9 +13,7 @@
 # License....: Apache License Version 2.0, January 2004 as shown
 #              at http://www.apache.org/licenses/
 # ---------------------------------------------------------------------------
-# Modified...:
-# see git revision history for more information on changes/updates
-# ---------------------------------------------------------------------------
+
 
 # create the nat gateway resource -------------------------------------------
 resource "oci_core_nat_gateway" "natgw" {
