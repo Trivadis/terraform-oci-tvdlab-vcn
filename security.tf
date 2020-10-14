@@ -20,7 +20,7 @@
 resource "oci_core_default_security_list" "default_security_list" {
   count                      = var.tvd_participants
   manage_default_resource_id = oci_core_vcn.vcn.*.default_security_list_id[count.index]
-  display_name               = var.label_prefix == "none" ? format("${local.vcn_shortname}%02d default security list", count.index) : format("${var.label_prefix} ${local.vcn_shortname}%02d default security list", count.index)
+  display_name               = var.label_prefix == "none" ? format("${local.resource_shortname}%02d default security list", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d default security list", count.index)
 
   # allow outbound tcp traffic on all ports
   egress_security_rules {

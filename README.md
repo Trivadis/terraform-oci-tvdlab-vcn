@@ -16,24 +16,56 @@ The module can be parametrized by the number of participants. This will then cre
 
 ![VCN architecture overview](https://github.com/Trivadis/terraform-oci-tvdlab-vcn/raw/main/doc/images/architecture.png)
 
-## Documentation
+## Prerequisites
 
-### Pre-requisites
+- An OCI account
+- Install [Terraform](https://www.terraform.io/downloads.html)
+- Create a Terraform Configuration
 
-tbd
+**HINT** This terraform module does use `count` to create multiple identical resources. Due to this at least Terraform version 0.13.0+ is required.
 
-### Instructions
+## Quickstart
 
-tbd
+The module is available in [Terraform registry](https://registry.terraform.io/modules/Trivadis/tvdlab-vcn/oci/latest). You may either us it via registry or clone [terraform-oci-tvdlab-vcn](https://github.com/Trivadis/terraform-oci-tvdlab-vcn) from github.
+
+Add the module to the `main.tf` with the mandatory parameter. 
+
+```bash
+module "tvdlab-vcn" {
+  source  = "Trivadis/tvdlab-vcn/oci"
+  version = "1.1.0"
+
+  # - Mandatory Parameters --------------------------------------------------
+  region         = var.region
+  compartment_id = var.compartment_id
+}
+```
+
+To create multiple VCNs just specify the `tvd_participants` parameter. The following example will create 3 VCN.
+
+```bash
+module "tvdlab-vcn" {
+  source  = "Trivadis/tvdlab-vcn/oci"
+  version = "1.1.0"
+
+  # - Mandatory Parameters --------------------------------------------------
+  region            = var.region
+  compartment_id    = var.compartment_id
+  tvd_participants  = 3
+}
+```
+
+The module can be customized by a couple of additional parameter. See [variables](./doc/variables.md) for more information about customisation. The folder [examples](examples) does contain an example files for [main.tf](examples/main.tf), [variables.tv](examples/variables.tf) and [terraform.tfvars](examples/terraform.tfvars.example).
 
 ## Related Documentation, Blog
 
 - [Oracle Cloud Infrastructure Documentation](https://docs.cloud.oracle.com/iaas/Content/home.htm)
 - [Terraform OCI Provider Documentation](https://www.terraform.io/docs/providers/oci/index.html)
+- [Terraform Creating Modules](https://www.terraform.io/docs/modules/index.html)
 
 ## Projects using this module
 
-tbd
+- [terraform-oci-tvdlab-base](https://github.com/Trivadis/terraform-oci-tvdlab-base) A reusable and extensible Terraform module that provisions a Trivadis LAB on Oracle Cloud Infrastructure.
 
 ## Releases and Changelog
 

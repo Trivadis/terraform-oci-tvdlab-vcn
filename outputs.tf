@@ -13,11 +13,7 @@
 # License....: Apache License Version 2.0, January 2004 as shown
 #              at http://www.apache.org/licenses/
 # ---------------------------------------------------------------------------
-# Modified...:
-# see git revision history for more information on changes/updates
-# ---------------------------------------------------------------------------
 
-# get lab compartment resource information
 output "vcn_id" {
   description = "id of VCNs which are created"
   value       = oci_core_vcn.vcn.*.id
@@ -46,6 +42,11 @@ output "nat_route_id" {
 output "default_dhcp_options_id" {
   description = "OCID of default DHCP options. "
   value       = oci_core_vcn.vcn.*.default_dhcp_options_id
+}
+
+output "default_security_list_id" {
+  description = "OCID of default security list. "
+  value       = oci_core_vcn.vcn.*.default_security_list_id
 }
 
 output "public_subnet_id" {

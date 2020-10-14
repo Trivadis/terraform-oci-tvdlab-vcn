@@ -21,7 +21,7 @@ resource "oci_core_subnet" "public_subnet" {
   count             = var.internet_gateway_enabled == true ? var.tvd_participants : 0
   compartment_id    = var.compartment_id
   cidr_block        = cidrsubnet(var.vcn_cidr, var.public_newbits, var.public_netnum)
-  display_name      = var.label_prefix == "none" ? format("${local.vcn_shortname}%02d public subnet", count.index) : format("${var.label_prefix} ${local.vcn_shortname}%02d public subnet", count.index)
+  display_name      = var.label_prefix == "none" ? format("${local.resource_shortname}%02d public subnet", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d public subnet", count.index)
   dns_label         = local.public_dns_label
   vcn_id            = oci_core_vcn.vcn.*.id[count.index]
   security_list_ids = [oci_core_vcn.vcn.*.default_security_list_id[count.index]]
@@ -34,7 +34,7 @@ resource "oci_core_subnet" "private_subnet" {
   count                      = var.nat_gateway_enabled == true ? var.tvd_participants : 0
   compartment_id             = var.compartment_id
   cidr_block                 = cidrsubnet(var.vcn_cidr, var.private_newbits, var.private_netnum)
-  display_name               = var.label_prefix == "none" ? format("${local.vcn_shortname}%02d private subnet", count.index) : format("${var.label_prefix} ${local.vcn_shortname}%02d private subnet", count.index)
+  display_name               = var.label_prefix == "none" ? format("${local.resource_shortname}%02d private subnet", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d private subnet", count.index)
   dns_label                  = local.private_dns_label
   prohibit_public_ip_on_vnic = true
   vcn_id                     = oci_core_vcn.vcn.*.id[count.index]

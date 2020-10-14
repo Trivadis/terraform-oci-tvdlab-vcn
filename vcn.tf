@@ -22,8 +22,8 @@ resource "oci_core_vcn" "vcn" {
   count          = var.tvd_participants
   cidr_block     = var.vcn_cidr
   compartment_id = var.compartment_id
-  display_name   = var.label_prefix == "none" ? format("${local.vcn_shortname}%02d", count.index) : format("${var.label_prefix} ${local.vcn_shortname}%02d", count.index)
-  dns_label      = format("${local.vcn_shortname}%02d", count.index)
+  display_name   = var.label_prefix == "none" ? format("${local.resource_shortname}%02d", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d", count.index)
+  dns_label      = format("${local.resource_shortname}%02d", count.index)
   freeform_tags  = var.tags
 }
 
@@ -31,7 +31,7 @@ resource "oci_core_vcn" "vcn" {
 resource "oci_core_default_dhcp_options" "public_dhcp_option" {
   count                      = var.tvd_participants
   manage_default_resource_id = oci_core_vcn.vcn.*.default_dhcp_options_id[count.index]
-  display_name               = var.label_prefix == "none" ? format("${local.vcn_shortname}%02d public dhcp", count.index) : format("${var.label_prefix} ${local.vcn_shortname}%02d public dhcp", count.index)
+  display_name               = var.label_prefix == "none" ? format("${local.resource_shortname}%02d public dhcp", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d public dhcp", count.index)
 
   options {
     custom_dns_servers = []
@@ -41,7 +41,7 @@ resource "oci_core_default_dhcp_options" "public_dhcp_option" {
 
   options {
     search_domain_names = [
-      format("${local.vcn_shortname}%02d.oraclevcn.com", count.index),
+      format("${local.resource_shortname}%02d.oraclevcn.com", count.index),
     ]
     type = "SearchDomain"
   }
@@ -52,7 +52,7 @@ resource "oci_core_dhcp_options" "private_dhcp_option" {
   count          = var.tvd_participants
   compartment_id = var.compartment_id
   vcn_id         = oci_core_vcn.vcn.*.id[count.index]
-  display_name   = var.label_prefix == "none" ? format("${local.vcn_shortname}%02d private dhcp", count.index) : format("${var.label_prefix} ${local.vcn_shortname}%02d private dhcp", count.index)
+  display_name   = var.label_prefix == "none" ? format("${local.resource_shortname}%02d private dhcp", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d private dhcp", count.index)
 
   # domain names server
   options {
@@ -76,7 +76,7 @@ resource "oci_core_dhcp_options" "private_dhcp_option" {
 resource "oci_core_internet_gateway" "igw" {
   count          = var.internet_gateway_enabled == true ? var.tvd_participants : 0
   compartment_id = var.compartment_id
-  display_name   = var.label_prefix == "none" ? format("${local.vcn_shortname}%02d_igw", count.index) : format("${var.label_prefix} ${local.vcn_shortname}%02d_igw", count.index)
+  display_name   = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_igw", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d_igw", count.index)
 
   vcn_id        = oci_core_vcn.vcn.*.id[count.index]
   enabled       = "true"
@@ -86,7 +86,7 @@ resource "oci_core_internet_gateway" "igw" {
 # create a default routing table --------------------------------------------
 resource "oci_core_default_route_table" "default_route_table" {
   count        = var.internet_gateway_enabled == true ? var.tvd_participants : 0
-  display_name = var.label_prefix == "none" ? format("${local.vcn_shortname}%02d internet route", count.index) : format("${var.label_prefix} ${local.vcn_shortname}%02d internet route", count.index)
+  display_name = var.label_prefix == "none" ? format("${local.resource_shortname}%02d internet route", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d internet route", count.index)
   manage_default_resource_id = oci_core_vcn.vcn.*.default_route_table_id[count.index]
   freeform_tags              = var.tags
 
