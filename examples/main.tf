@@ -13,9 +13,6 @@
 # License....: Apache License Version 2.0, January 2004 as shown
 #              at http://www.apache.org/licenses/
 # ---------------------------------------------------------------------------
-# Modified...:
-# see git revision history for more information on changes/updates
-# ---------------------------------------------------------------------------
 
 terraform {
   required_providers {
@@ -37,6 +34,7 @@ provider "oci" {
 
 module "tvdlab-vcn" {
   source  = "Trivadis/tvdlab-vcn/oci"
+  #source = "../terraform-oci-tvdlab-vcn"
   version = "1.1.0"
 
   # - Mandatory Parameters --------------------------------------------------
