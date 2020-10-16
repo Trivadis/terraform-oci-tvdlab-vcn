@@ -34,7 +34,7 @@ Add the module to the `main.tf` with the mandatory parameter.
 ```bash
 module "tvdlab-vcn" {
   source  = "Trivadis/tvdlab-vcn/oci"
-  version = "1.1.0"
+  version = "1.1.1"
 
   # - Mandatory Parameters --------------------------------------------------
   region         = var.region
@@ -47,7 +47,7 @@ To create multiple VCNs just specify the `tvd_participants` parameter. The follo
 ```bash
 module "tvdlab-vcn" {
   source  = "Trivadis/tvdlab-vcn/oci"
-  version = "1.1.0"
+  version = "1.1.1"
 
   # - Mandatory Parameters --------------------------------------------------
   region            = var.region
@@ -57,6 +57,16 @@ module "tvdlab-vcn" {
 ```
 
 The module can be customized by a couple of additional parameter. See [variables](./doc/variables.md) for more information about customisation. The folder [examples](examples) does contain an example files for [main.tf](examples/main.tf), [variables.tv](examples/variables.tf) and [terraform.tfvars](examples/terraform.tfvars.example).
+
+
+## Security Configuration
+
+The VCN will be configured with a security list allowing the following external access:
+
+- Port **22** inbound SSH traffic
+- Port **80** inbound HTTP traffic
+- Port **443** inbound HTTPS traffic
+- Port **6000-6010** inbound MOSH traffic via UTP
 
 ## Related Documentation, Blog
 

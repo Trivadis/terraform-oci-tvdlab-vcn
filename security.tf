@@ -38,7 +38,43 @@ resource "oci_core_default_security_list" "default_security_list" {
     }
   }
 
-  # allow inbound SSH traffic
+  # allow inbound HTTP traffic
+  ingress_security_rules {
+    description = "Allow inbound HTTP traffic"
+    protocol    = local.tcp_protocol
+    source      = local.anywhere
+
+    tcp_options {
+      min = local.http_port
+      max = local.http_port
+    }
+  }
+
+  # allow inbound HTTPS traffic
+  ingress_security_rules {
+    description = "Allow inbound HTTPS traffic"
+    protocol    = local.tcp_protocol
+    source      = local.anywhere
+
+    tcp_options {
+      min = local.https_port
+      max = local.https_port
+    }
+  }
+
+  # allow inbound MOSH traffic
+  ingress_security_rules {
+    description = "Allow inbound MOSH traffic"
+    protocol    = local.tcp_protocol
+    source      = local.anywhere
+
+    tcp_options {
+      min = local.mosh_port
+      max = local.mosh_port+10
+    }
+  }
+
+  # Allow RDP traffic in subnets
   ingress_security_rules {
     description = "Allow RDP traffic in subnets"
     protocol    = local.tcp_protocol
