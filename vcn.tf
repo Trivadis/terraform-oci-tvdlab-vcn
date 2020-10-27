@@ -38,7 +38,6 @@ resource "oci_core_default_dhcp_options" "public_dhcp_option" {
 
   options {
     search_domain_names = [
-      var.tvd_domain,
       format("${local.resource_shortname}%02d.oraclevcn.com", count.index),
     ]
     type = "SearchDomain"
