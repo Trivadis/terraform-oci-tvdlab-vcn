@@ -1,6 +1,9 @@
 # Module Variables
 
-Variables for the configuration of the terraform module, defined in [variables](../variables.tf).
+Variables for the configuration of the terraform module, defined in [variables](../variables.tf). Whereby the following are mandatory:
+
+* `region` Region where to provision the VCN.
+* `compartment_id` OCID of the compartment where to create all resources.
 
 ## Provider
 

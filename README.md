@@ -14,7 +14,6 @@ It creates the following resources:
 
 The module can be parametrized by the number of participants. This will then create n-VCNs.  The following figure shows a VCN for the compartment O-SEC. i.e. `resource_name` has been derivated from compartment name.
 
-
 ![VCN architecture overview](https://github.com/Trivadis/terraform-oci-tvdlab-vcn/raw/main/doc/images/architecture.png)
 
 ## Prerequisites
@@ -29,12 +28,12 @@ The module can be parametrized by the number of participants. This will then cre
 
 The module is available in [Terraform registry](https://registry.terraform.io/modules/Trivadis/tvdlab-vcn/oci/latest). You may either us it via registry or clone [terraform-oci-tvdlab-vcn](https://github.com/Trivadis/terraform-oci-tvdlab-vcn) from github.
 
-Add the module to the `main.tf` with the mandatory parameter. 
+Add the module to the `main.tf` with the mandatory parameter.
 
 ```bash
 module "tvdlab-vcn" {
   source  = "Trivadis/tvdlab-vcn/oci"
-  version = "1.1.1"
+  version = ">= 1.0.0"
 
   # - Mandatory Parameters --------------------------------------------------
   region         = var.region
@@ -42,12 +41,12 @@ module "tvdlab-vcn" {
 }
 ```
 
-To create multiple VCNs just specify the `tvd_participants` parameter. The following example will create 3 VCN.
+To create multiple VCNs just specify the `tvd_participants` parameter. The following example will create 3 equal VCN where each VCN is named according its number and the compartment or if specified according to the variable `resource_name`. e.g. for a compartment O-SEC it will create VCN *osec00*, *osec01* and *osec02*. The naming schema will also be used for all other resources.
 
 ```bash
 module "tvdlab-vcn" {
   source  = "Trivadis/tvdlab-vcn/oci"
-  version = "1.1.1"
+  version = ">= 1.0.0"
 
   # - Mandatory Parameters --------------------------------------------------
   region            = var.region
@@ -58,31 +57,34 @@ module "tvdlab-vcn" {
 
 The module can be customized by a couple of additional parameter. See [variables](./doc/variables.md) for more information about customisation. The folder [examples](examples) does contain an example files for [main.tf](examples/main.tf), [variables.tv](examples/variables.tf) and [terraform.tfvars](examples/terraform.tfvars.example).
 
-
 ## Security Configuration
 
-The VCN will be configured with a security list allowing the following external access:
+The VCN will be configured with a security list allowing the following access:
 
-- Port **22** inbound SSH traffic
-- Port **80** inbound HTTP traffic
-- Port **443** inbound HTTPS traffic
-- Port **6000-6010** inbound MOSH traffic via UTP
+* Port **22** inbound SSH traffic
+* Port **80** inbound HTTP traffic
+* Port **443** inbound HTTPS traffic
+* Port **6000-6010** inbound MOSH traffic via UTP
+* All protocols in private subnet
+* All protocols in between public and private subnet
+* All protocols for outbound traffic
 
 ## Related Documentation, Blog
 
-- [Oracle Cloud Infrastructure Documentation](https://docs.cloud.oracle.com/iaas/Content/home.htm)
-- [Terraform OCI Provider Documentation](https://www.terraform.io/docs/providers/oci/index.html)
-- [Terraform Creating Modules](https://www.terraform.io/docs/modules/index.html)
+* [Oracle Cloud Infrastructure Documentation](https://docs.cloud.oracle.com/iaas/Content/home.htm)
+* [Terraform OCI Provider Documentation](https://www.terraform.io/docs/providers/oci/index.html)
+* [Terraform Creating Modules](https://www.terraform.io/docs/modules/index.html)
 
 ## Projects using this module
 
-- [terraform-oci-tvdlab-base](https://github.com/Trivadis/terraform-oci-tvdlab-base) A reusable and extensible Terraform module that provisions a Trivadis LAB on Oracle Cloud Infrastructure.
+* [terraform-oci-tvdlab-base](https://github.com/Trivadis/terraform-oci-tvdlab-base) A reusable and extensible Terraform module that provisions a Trivadis LAB on Oracle Cloud Infrastructure.
 
 ## Releases and Changelog
 
 You find all releases and release information [here](https://github.com/Trivadis/terraform-oci-tvdlab-vcn/releases).
 
 ## Issues
+
 Please file your bug reports, enhancement requests, questions and other support requests within [Github's issue tracker](https://help.github.com/articles/about-issues/).
 
 * [Questions](https://github.com/Trivadis/terraform-oci-tvdlab-vcn/issues?q=is%3Aissue+label%3Aquestion)

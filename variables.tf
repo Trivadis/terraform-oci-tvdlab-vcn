@@ -7,7 +7,7 @@
 # Editor.....: Stefan Oehrli
 # Date.......: 2020.10.12
 # Revision...: 
-# Purpose....: Variable file for the terraform module tvdlab vcn.
+# Purpose....: Variable definition file for the terraform module tvdlab vcn.
 # Notes......: -- 
 # Reference..: --
 # License....: Apache License Version 2.0, January 2004 as shown
