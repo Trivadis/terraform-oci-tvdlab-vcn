@@ -25,7 +25,7 @@ locals {
   rdp_port            = 3389
   mosh_port           = 6000
   anywhere            = "0.0.0.0/0"
-  resource_name       = var.resource_name == "" ? data.oci_identity_compartment.compartment.name : var.resource_name 
+  resource_name       = var.resource_name == "" ? data.oci_identity_compartment.compartment.name : var.resource_name
   resource_shortname  = lower(replace(local.resource_name, "-", ""))
   public_dns_label    = "public"
   private_dns_label   = "private"

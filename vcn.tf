@@ -82,8 +82,8 @@ resource "oci_core_internet_gateway" "igw" {
 
 # create a default routing table --------------------------------------------
 resource "oci_core_default_route_table" "default_route_table" {
-  count        = var.internet_gateway_enabled == true ? var.tvd_participants : 0
-  display_name = var.label_prefix == "none" ? format("${local.resource_shortname}%02d internet route", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d internet route", count.index)
+  count                      = var.internet_gateway_enabled == true ? var.tvd_participants : 0
+  display_name               = var.label_prefix == "none" ? format("${local.resource_shortname}%02d internet route", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d internet route", count.index)
   manage_default_resource_id = oci_core_vcn.vcn.*.default_route_table_id[count.index]
   freeform_tags              = var.tags
 

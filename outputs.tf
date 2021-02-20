@@ -21,7 +21,7 @@ output "vcn_id" {
 
 output "internet_gateway_id" {
   description = "OCID of internet gateway, if it is created"
-  value = oci_core_internet_gateway.igw.*.id
+  value       = oci_core_internet_gateway.igw.*.id
 }
 
 output "igw_route_id" {

@@ -70,7 +70,7 @@ resource "oci_core_default_security_list" "default_security_list" {
 
     tcp_options {
       min = local.mosh_port
-      max = local.mosh_port+10
+      max = local.mosh_port + 10
     }
   }
 
