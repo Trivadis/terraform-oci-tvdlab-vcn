@@ -44,6 +44,15 @@ output "default_dhcp_options_id" {
   value       = oci_core_vcn.vcn.*.default_dhcp_options_id
 }
 
+output "public_dhcp_option_id" {
+  description = "OCID of public DHCP options. "
+  value       = oci_core_vcn.vcn.*.public_dhcp_option_id
+}
+
+output "private_dhcp_option_id" {
+  description = "OCID of private DHCP options. "
+  value       = oci_core_vcn.vcn.*.private_dhcp_option_id
+}
 output "default_security_list_id" {
   description = "OCID of default security list. "
   value       = oci_core_vcn.vcn.*.default_security_list_id
