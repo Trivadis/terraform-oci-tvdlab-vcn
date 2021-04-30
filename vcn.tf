@@ -53,13 +53,9 @@ resource "oci_core_dhcp_options" "private_dhcp_option" {
 
   # domain names server
   options {
-    type        = "DomainNameServer"
-    server_type = "CustomDnsServer"
-    custom_dns_servers = [
-
-      var.tvd_private_dns == "default" ? local.default_private_dns : var.tvd_private_dns,
-      var.tvd_public_dns
-    ]
+    type               = "DomainNameServer"
+    server_type        = "CustomDnsServer"
+    custom_dns_servers = local.custom_dns_servers
   }
 
   # search domain

@@ -61,8 +61,9 @@ module "tvdlab-vcn" {
   public_newbits           = var.public_newbits
 
   # Trivadis LAB specific parameter 
-  tvd_dns_hostnum = var.tvd_dns_hostnum
-  tvd_private_dns = var.tvd_private_dns
-  tvd_public_dns  = var.tvd_public_dns
+  tvd_dns_hostnum    = var.tvd_dns_hostnum
+  custom_dns_servers = var.custom_dns_servers
+  tvd_private_dns    = var.tvd_private_dns
+  tvd_public_dns     = var.tvd_public_dns
 }
 # --- EOF -------------------------------------------------------------------

@@ -30,5 +30,7 @@ locals {
   public_dns_label    = "public"
   private_dns_label   = "private"
   default_private_dns = cidrhost(cidrsubnet(var.vcn_cidr, var.private_newbits, var.private_netnum), var.tvd_dns_hostnum)
+  tvd_private_dns     = var.tvd_private_dns == "default" ? local.default_private_dns : var.tvd_private_dns
+  custom_dns_servers  = var.custom_dns_servers == [] ? [local.tvd_private_dns, var.tvd_public_dns] : var.custom_dns_servers
 }
 # --- EOF -------------------------------------------------------------------

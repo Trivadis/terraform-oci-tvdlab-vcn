@@ -115,6 +115,12 @@ variable "tvd_dns_hostnum" {
   default     = 4
 }
 
+variable "custom_dns_servers" {
+  description = "List of custom DNS server"
+  type        = list(string)
+  default     = []
+}
+
 variable "tvd_private_dns" {
   description = "A private DNS IP address for the training environment"
   type        = string
