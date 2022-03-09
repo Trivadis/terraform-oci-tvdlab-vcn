@@ -26,68 +26,19 @@ resource "oci_core_default_security_list" "default_security_list" {
     destination = local.anywhere
   }
 
-  # allow inbound SSH traffic
+  # conditionally configure ingress rules
   dynamic "ingress_security_rules" {
-    for_each    = var.public_ssh_access == true ? [] : [1]
-    description = "Allow inbound SSH traffic"
-    protocol    = local.tcp_protocol
-    source      = local.anywhere
+    for_each = local.ingress_rules
 
-    tcp_options {
-      min = var.public_ssh_port
-      max = var.public_ssh_port
-    }
-  }
+    content {
+      description = ingress_security_rules.value.description
+      protocol    = ingress_security_rules.value.protocol
+      source      = local.anywhere
 
-  # allow inbound HTTP traffic
-  dynamic "ingress_security_rules" {
-    for_each    = var.public_http_access == true ? [] : [1]
-    description = "Allow inbound HTTP traffic"
-    protocol    = local.tcp_protocol
-    source      = local.anywhere
-
-    tcp_options {
-      min = var.public_http_port
-      max = var.public_http_port
-    }
-  }
-
-  # allow inbound HTTPS traffic
-  dynamic "ingress_security_rules" {
-    for_each    = var.public_http_access == true ? [] : [1]
-    description = "Allow inbound HTTPS traffic"
-    protocol    = local.tcp_protocol
-    source      = local.anywhere
-
-    tcp_options {
-      min = var.public_https_port
-      max = var.public_https_port
-    }
-  }
-
-  # allow inbound OpenVPN traffic
-  dynamic "ingress_security_rules" {
-    for_each    = var.public_vpn_access == true ? [] : [1]
-    description = "Allow inbound OpenVPN traffic"
-    protocol    = local.udp_protocol
-    source      = local.anywhere
-
-    tcp_options {
-      min = var.public_vpn_port
-      max = var.public_vpn_port
-    }
-  }
-
-  # allow inbound MOSH traffic
-  dynamic "ingress_security_rules" {
-    for_each    = var.public_mosh_access == true ? [] : [1]
-    description = "Allow inbound MOSH traffic"
-    protocol    = local.tcp_protocol
-    source      = local.anywhere
-
-    tcp_options {
-      min = var.public_mosh_port
-      max = var.public_mosh_port + 10
+      tcp_options {
+        min = ingress_security_rules.value.port
+        max = ingress_security_rules.value.port
+      }
     }
   }
 
