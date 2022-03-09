@@ -34,7 +34,7 @@ provider "oci" {
 
 module "tvdlab-vcn" {
   source  = "Trivadis/tvdlab-vcn/oci"
-  version = ">= 1.0.0"
+  version = ">= 2.0.0"
 
   # - Mandatory Parameters --------------------------------------------------
   region         = var.region
@@ -65,5 +65,16 @@ module "tvdlab-vcn" {
   custom_dns_servers = var.custom_dns_servers
   tvd_private_dns    = var.tvd_private_dns
   tvd_public_dns     = var.tvd_public_dns
+
+  # Configure Public Access e.g. does create corresponding ingress rules
+  public_ssh_access  = var.public_ssh_access
+  public_ssh_port    = var.public_ssh_port
+  public_http_access = var.public_http_access
+  public_http_port   = var.public_http_port
+  public_https_port  = var.public_https_port
+  public_vpn_access  = var.public_vpn_access
+  public_vpn_port    = var.public_vpn_port
+  public_mosh_access = var.public_mosh_access
+  public_mosh_port   = var.public_mosh_port
 }
 # --- EOF -------------------------------------------------------------------

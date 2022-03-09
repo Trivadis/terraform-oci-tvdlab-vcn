@@ -32,6 +32,15 @@ Variables for the configuration of the terraform module, defined in [variables](
 | `public_newbits`           | The difference between the VCN's netmask and the desired public subnet mask.                             |            | 8           |
 | `private_netnum`           | 0-based index of the private subnet when the VCN's CIDR is masked with the corresponding *newbit* value. |            | 1           |
 | `private_newbits`          | The difference between the VCN's netmask and the desired private subnet mask.                            |            | 8           |
+| `public_ssh_access`        | Flag indicating whether public SSH access is to be granted, or not.                                      | true/false | true        |
+| `public_ssh_port`          | Public SSH access port configured in security list.                                                      | number     | 22          |
+| `public_http_access`       | Flag indicating whether public HTTP/HTTPS access is to be granted, or not.                               | true/false | true        |
+| `public_http_port`         | Public HTTP access port configured in security list.                                                     | number     | 80          |
+| `public_https_port`        | Public HTTPS access port configured in security list.                                                    | number     | 443         |
+| `public_vpn_access`        | Flag indicating whether public OpenVPN access is to be granted, or not.                                  | true/false | true        |
+| `public_vpn_port`          | Public OpenVPN access port configured in security list.                                                  | number     | 1194        |
+| `public_mosh_access`       | Flag indicating whether public MOSH access is to be granted, or not.                                     | true/false | true        |
+| `public_mosh_port`         | Public MOSH access port configured in security list.                                                     | number     | 6000        |
 
 ## Trivadis LAB
 

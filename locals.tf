@@ -22,6 +22,7 @@ locals {
   ssh_port            = 22
   http_port           = 80
   https_port          = 443
+  openvpn_port        = 1194
   rdp_port            = 3389
   mosh_port           = 6000
   anywhere            = "0.0.0.0/0"
