@@ -27,8 +27,8 @@ resource "oci_core_default_security_list" "default_security_list" {
   }
 
   # allow inbound SSH traffic
-  ingress_security_rules {
-    count       = var.public_ssh_access == true ? 1 : 0
+  dynamic "ingress_security_rules" {
+    for_each    = var.public_ssh_access == true ? [] : [1]
     description = "Allow inbound SSH traffic"
     protocol    = local.tcp_protocol
     source      = local.anywhere
@@ -40,8 +40,8 @@ resource "oci_core_default_security_list" "default_security_list" {
   }
 
   # allow inbound HTTP traffic
-  ingress_security_rules {
-    count       = var.public_http_access == true ? 1 : 0
+  dynamic "ingress_security_rules" {
+    for_each    = var.public_http_access == true ? [] : [1]
     description = "Allow inbound HTTP traffic"
     protocol    = local.tcp_protocol
     source      = local.anywhere
@@ -53,8 +53,8 @@ resource "oci_core_default_security_list" "default_security_list" {
   }
 
   # allow inbound HTTPS traffic
-  ingress_security_rules {
-    count       = var.public_http_access == true ? 1 : 0
+  dynamic "ingress_security_rules" {
+    for_each    = var.public_http_access == true ? [] : [1]
     description = "Allow inbound HTTPS traffic"
     protocol    = local.tcp_protocol
     source      = local.anywhere
@@ -66,8 +66,8 @@ resource "oci_core_default_security_list" "default_security_list" {
   }
 
   # allow inbound OpenVPN traffic
-  ingress_security_rules {
-    count       = var.public_vpn_access == true ? 1 : 0
+  dynamic "ingress_security_rules" {
+    for_each    = var.public_vpn_access == true ? [] : [1]
     description = "Allow inbound OpenVPN traffic"
     protocol    = local.udp_protocol
     source      = local.anywhere
@@ -77,9 +77,10 @@ resource "oci_core_default_security_list" "default_security_list" {
       max = var.public_vpn_port
     }
   }
+
   # allow inbound MOSH traffic
-  ingress_security_rules {
-    count       = var.public_mosh_access == true ? 1 : 0
+  dynamic "ingress_security_rules" {
+    for_each    = var.public_mosh_access == true ? [] : [1]
     description = "Allow inbound MOSH traffic"
     protocol    = local.tcp_protocol
     source      = local.anywhere
