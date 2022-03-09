@@ -31,8 +31,9 @@ locals {
     description = "Allow inbound SSH traffic"
   }]
   ingress_rule_vpn = [{
-    port        = var.public_vpn_port
-    protocol    = local.udp_protocol
+    port = var.public_vpn_port
+    #protocol    = local.udp_protocol
+    protocol    = local.tcp_protocol
     description = "Allow inbound OpenVPN traffic"
   }]
   ingress_rule_http = [{
