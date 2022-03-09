@@ -30,7 +30,7 @@ locals {
     protocol    = local.tcp_protocol
     description = "Allow inbound SSH traffic"
   }]
-  ingress_rule_openvpn = [{
+  ingress_rule_vpn = [{
     port        = var.public_vpn_port
     protocol    = local.udp_protocol
     description = "Allow inbound OpenVPN traffic"
@@ -55,7 +55,7 @@ locals {
   ingress_rules = concat([],
     var.public_ssh_access == true ? local.ingress_rule_ssh : [],
     var.public_http_access == true ? local.ingress_rule_http : [],
-    var.public_openvpn_access == true ? local.ingress_rule_openvpn : [],
+    var.public_vpn_access == true ? local.ingress_rule_vpn : [],
   var.public_mosh_access == true ? local.ingress_rule_mosh : [])
 
   anywhere            = "0.0.0.0/0"
