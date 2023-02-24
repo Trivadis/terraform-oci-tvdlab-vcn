@@ -186,4 +186,42 @@ variable "tvd_public_dns" {
   type        = string
   default     = "8.8.8.8"
 }
+
+# Log parameter -------------------------------------------------------------
+variable "log_is_enabled" {
+  description = "Whether or not this resource is currently enabled."
+  default     = false
+  type        = bool
+}
+
+variable "log_retention_duration" {
+  description = "Log retention duration in 30-day increments (30, 60, 90 and so on)."
+  type        = string
+  default     = 90
+}
+
+variable "log_type" {
+  description = "The logType that the log object is for, whether custom or service."
+  type        = string
+  default     = "SERVICE"
+}
+
+variable "log_configuration_source_category" {
+  description = "Log object category."
+  type        = string
+  default     = "all"
+}
+
+variable "log_configuration_source_service" {
+  description = "Service generating log."
+  type        = string
+  default     = "flowlogs"
+}
+
+variable "log_configuration_source_source_type" {
+  description = "The log source."
+  type        = string
+  default     = "OCISERVICE"
+}
+
 # --- EOF -------------------------------------------------------------------

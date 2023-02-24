@@ -29,14 +29,14 @@ resource "oci_logging_log" "default_log" {
   count        = var.tvd_participants
   description  = var.label_prefix == "none" ? format("Default log for ${local.resource_shortname}%02d", count.index) : format("Default log for ${var.label_prefix} ${local.resource_shortname}%02d", count.index)
   log_group_id = oci_logging_log_group.log_group.*.id[count.index]
-  log_type     = "SERVICE"
+  log_type     = var.log_type
 
   configuration {
     source {
-      category    = "all"
+      category    = var.log_configuration_source_category
       resource    = oci_core_subnet.private_subnet.*.id[count.index]
-      service     = "flowlogs"
-      source_type = "OCISERVICE"
+      service     = var.log_configuration_source_service
+      source_type = var.log_configuration_source_source_type
     }
 
     compartment_id = var.compartment_id
