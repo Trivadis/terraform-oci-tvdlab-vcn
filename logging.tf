@@ -20,14 +20,13 @@ resource "oci_logging_log_group" "log_group" {
   count          = var.tvd_participants
   compartment_id = var.compartment_id
   display_name   = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_lg", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d_lg", count.index)
-  description    = var.label_prefix == "none" ? format("Default log group for ${local.resource_shortname}%02d", count.index) : format("Default log group for ${var.label_prefix} ${local.resource_shortname}%02d", count.index)
   freeform_tags  = var.tags
 }
 
 # create a default log --------------------------------------------
 resource "oci_logging_log" "default_log" {
   count        = var.tvd_participants
-  display_name = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_log_private_subnet", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d_log_private_subnet", count.index)
+  display_name = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_log", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d_log", count.index)
   log_group_id = oci_logging_log_group.log_group.*.id[count.index]
   log_type     = var.log_type
 
