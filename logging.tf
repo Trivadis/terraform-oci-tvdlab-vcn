@@ -27,7 +27,7 @@ resource "oci_logging_log_group" "log_group" {
 # create a default log --------------------------------------------
 resource "oci_logging_log" "default_log" {
   count        = var.tvd_participants
-  display_name = var.label_prefix == "none" ? format("Default log for ${local.resource_shortname}%02d", count.index) : format("Default log for ${var.label_prefix} ${local.resource_shortname}%02d", count.index)
+  display_name = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_log_private_subnet", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d_log_private_subnet", count.index)
   log_group_id = oci_logging_log_group.log_group.*.id[count.index]
   log_type     = var.log_type
 
