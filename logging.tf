@@ -19,7 +19,7 @@
 resource "oci_logging_log_group" "log_group" {
   count          = var.tvd_participants
   compartment_id = var.compartment_id
-  display_name   = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_log_group", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d_log_group", count.index)
+  display_name   = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_lg", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d_lg", count.index)
   description    = var.label_prefix == "none" ? format("Default log group for ${local.resource_shortname}%02d", count.index) : format("Default log group for ${var.label_prefix} ${local.resource_shortname}%02d", count.index)
   freeform_tags  = var.tags
 }
