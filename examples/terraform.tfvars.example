@@ -56,12 +56,12 @@ outbound_port_range_max              = 20999              # Outbound max port fo
 outbound_port_range_min              = 15000              # Outbound min port for TCP range access configured in security list.
 private_netnum                       = 1                  # 0-based index of the private subnet when the VCN's CIDR is masked with the corresponding newbit value.
 private_newbits                      = 8                  # The difference between the VCN's netmask and the desired private subnet mask
-inbound_mosh_access                   = false              # Flag indicating whether public MOSH access is to be granted, or not.
+inbound_mosh_access                  = false              # Flag indicating whether public MOSH access is to be granted, or not.
 public_netnum                        = 0                  # 0-based index of the bastion subnet when the VCN's CIDR is masked with the corresponding newbit value.
 public_newbits                       = 8                  # The difference between the VCN's netmask and the desired bastion subnet mask
-inbound_ssh_access                    = true               # Flag indicating whether public SSH access is to be granted, or not.
-inbound_ssh_port                      = 22                 # Public SSH access port configured in security list.
-inbound_vpn_access                    = true               # Flag indicating whether public OpenVPN access is to be granted, or not.
+inbound_ssh_access                   = true               # Flag indicating whether public SSH access is to be granted, or not.
+inbound_ssh_port                     = 22                 # Public SSH access port configured in security list.
+inbound_vpn_access                   = true               # Flag indicating whether public OpenVPN access is to be granted, or not.
 service_gateway_enabled              = false              # whether to create a service gateway
 vcn_cidr                             = "10.0.0.0/16"      # cidr block of VCN
 # --- EOF -------------------------------------------------------------------
