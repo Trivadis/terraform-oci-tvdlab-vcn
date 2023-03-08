@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Trivadis AG, Infrastructure Managed Services
+# Trivadis - Part of Accenture, Platform Factory - Data Platforms
 # Saegereistrasse 29, 8152 Glattbrugg, Switzerland
 # ---------------------------------------------------------------------------
 # Name.......: locals.tf
@@ -26,38 +26,62 @@ locals {
   rdp_port      = 3389
   mosh_port     = 6000
   ingress_rule_ssh = [{
-    port        = var.public_ssh_port
+    port        = var.inbound_ssh_port
     protocol    = local.tcp_protocol
     description = "Allow inbound SSH traffic"
   }]
   ingress_rule_vpn = [{
-    port = var.public_vpn_port
+    port = var.inbound_vpn_port
     #protocol    = local.udp_protocol
     protocol    = local.tcp_protocol
     description = "Allow inbound OpenVPN traffic"
   }]
   ingress_rule_http = [{
-    port        = var.public_https_port
+    port        = var.inbound_https_port
     protocol    = local.tcp_protocol
     description = "Allow inbound HTTPS traffic"
     },
     {
-      port        = var.public_http_port
+      port        = var.inbound_http_port
       protocol    = local.tcp_protocol
       description = "Allow inbound HTTPS traffic"
   }]
 
   ingress_rule_mosh = [{
-    port        = var.public_mosh_port
+    port        = var.inbound_mosh_port
     protocol    = local.tcp_protocol
     description = "Allow inbound MOSH traffic"
   }]
 
   ingress_rules = concat([],
-    var.public_ssh_access == true ? local.ingress_rule_ssh : [],
-    var.public_http_access == true ? local.ingress_rule_http : [],
-    var.public_vpn_access == true ? local.ingress_rule_vpn : [],
-  var.public_mosh_access == true ? local.ingress_rule_mosh : [])
+    var.inbound_ssh_access == true ? local.ingress_rule_ssh : [],
+    var.inbound_http_access == true ? local.ingress_rule_http : [],
+    var.inbound_vpn_access == true ? local.ingress_rule_vpn : [],
+  var.inbound_mosh_access == true ? local.ingress_rule_mosh : [])
+
+  egress_rule_http = [{
+    min         = var.outbound_https_port
+    max         = var.outbound_https_port
+    protocol    = local.tcp_protocol
+    description = "Allow outbound HTTPS traffic"
+    },
+    {
+      min         = var.outbound_http_port
+      max         = var.outbound_http_port
+      protocol    = local.tcp_protocol
+      description = "Allow outbound HTTP traffic"
+  }]
+
+  egress_rule_port_range = [{
+    min         = var.outbound_port_range_min
+    max         = var.outbound_port_range_max
+    protocol    = local.tcp_protocol
+    description = "Allow outbound TCP port range"
+  }]
+
+  engress_rules = concat([],
+    var.outbound_port_range == true ? local.egress_rule_port_range : [],
+  var.outbound_http_access == true ? local.egress_rule_http : [])
 
   anywhere            = "0.0.0.0/0"
   resource_name       = var.resource_name == "" ? data.oci_identity_compartment.compartment.name : var.resource_name

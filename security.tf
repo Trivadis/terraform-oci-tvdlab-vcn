@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Trivadis AG, Infrastructure Managed Services
+# Trivadis - Part of Accenture, Platform Factory - Data Platforms
 # Saegereistrasse 29, 8152 Glattbrugg, Switzerland
 # ---------------------------------------------------------------------------
 # Name.......: security.tf
@@ -20,12 +20,21 @@ resource "oci_core_default_security_list" "default_security_list" {
   manage_default_resource_id = oci_core_vcn.vcn.*.default_security_list_id[count.index]
   display_name               = var.label_prefix == "none" ? format("${local.resource_shortname}%02d default security list", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d default security list", count.index)
 
-  # allow outbound tcp traffic on all ports
-  egress_security_rules {
-    protocol    = local.all_protocols
-    destination = local.anywhere
-  }
+  # conditionally configure egress rules
+  dynamic "egress_security_rules" {
+    for_each = local.engress_rules
 
+    content {
+      description = egress_security_rules.value.description
+      protocol    = egress_security_rules.value.protocol
+      destination = local.anywhere
+
+      tcp_options {
+        min = egress_security_rules.value.min
+        max = egress_security_rules.value.max
+      }
+    }
+  }
   # conditionally configure ingress rules
   dynamic "ingress_security_rules" {
     for_each = local.ingress_rules

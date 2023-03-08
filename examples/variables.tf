@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Trivadis AG, Infrastructure Managed Services
+# Trivadis - Part of Accenture, Platform Factory - Data Platforms
 # Saegereistrasse 29, 8152 Glattbrugg, Switzerland
 # ---------------------------------------------------------------------------
 # Name.......: variables.tf
@@ -83,56 +83,94 @@ variable "public_newbits" {
   type        = number
 }
 
-variable "public_ssh_access" {
+variable "inbound_ssh_access" {
   description = "Flag indicating whether public SSH access is to be granted, or not."
   default     = true
   type        = bool
 }
 
-variable "public_ssh_port" {
+variable "inbound_ssh_port" {
   description = "Public SSH access port configured in security list."
   type        = number
   default     = 22
 }
 
-variable "public_http_access" {
-  description = "Flag indicating whether public HTTP/HTTPS access is to be granted, or not."
+variable "inbound_http_access" {
+  description = "Flag indicating whether inbound HTTP/HTTPS access is to be granted, or not."
   default     = true
   type        = bool
 }
 
-variable "public_http_port" {
-  description = "Public HTTP access port configured in security list."
+variable "inbound_http_port" {
+  description = "Inbound HTTP access port configured in security list."
   type        = number
   default     = 80
 }
 
-variable "public_https_port" {
-  description = "Public HTTPS access port configured in security list."
+variable "inbound_https_port" {
+  description = "Inbound HTTPS access port configured in security list."
   type        = number
   default     = 443
 }
 
-variable "public_vpn_access" {
+variable "outbound_http_access" {
+  description = "Flag indicating whether outbound HTTP/HTTPS access is to be granted, or not."
+  default     = true
+  type        = bool
+}
+
+variable "outbound_http_port" {
+  description = "Outbound HTTP access port configured in security list."
+  type        = number
+  default     = 80
+}
+
+variable "outbound_https_port" {
+  description = "Outbound HTTPS access port configured in security list."
+  type        = number
+  default     = 443
+}
+
+variable "outbound_port_range" {
+  description = "Flag indicating whether outbound TCP range access is to be granted, or not."
+  default     = true
+  type        = bool
+}
+
+variable "outbound_port_range_min" {
+  description = "Outbound min port for TCP range access configured in security list."
+  type        = number
+  default     = 15000
+}
+
+variable "outbound_port_range_max" {
+  description = "Outbound max port for TCP range access configured in security list."
+  type        = number
+  default     = 20999
+}
+
+
+
+variable "inbound_vpn_access" {
   description = "Flag indicating whether public OpenVPN access is to be granted, or not."
   default     = true
   type        = bool
 }
 
-variable "public_vpn_port" {
-  description = "Public OpenVPN access port configured in security list."
+variable "inbound_vpn_port" {
+  description = "Inbound OpenVPN access port configured in security list."
   type        = number
   default     = 1194
 }
 
-variable "public_mosh_access" {
+variable "inbound_mosh_access" {
   description = "Flag indicating whether public MOSH access is to be granted, or not."
   default     = false
   type        = bool
 }
 
-variable "public_mosh_port" {
-  description = "Public MOSH access port configured in security list."
+variable "inbound_mosh_port" {
+  description = "Inbound MOSH access port configured in security list."
   type        = number
   default     = 6000
 }
@@ -190,7 +228,7 @@ variable "tvd_public_dns" {
 # Log parameter -------------------------------------------------------------
 variable "log_is_enabled" {
   description = "Whether or not this resource is currently enabled."
-  default     = false
+  default     = true
   type        = bool
 }
 

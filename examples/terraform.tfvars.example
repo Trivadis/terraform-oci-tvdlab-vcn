@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Trivadis AG, Infrastructure Managed Services
+# Trivadis - Part of Accenture, Platform Factory - Data Platforms
 # Saegereistrasse 29, 8152 Glattbrugg, Switzerland
 # ---------------------------------------------------------------------------
 # Name.......: terraform.tfvars.example
@@ -21,25 +21,47 @@ region                      = "eu-zurich-1"
 user_ocid                   = ""
 
 # general oci parameters ----------------------------------------------------
-compartment_id              = ""
-label_prefix                = "none"
-resource_name               = ""
-tags                        = {}
-
-# VCN parameters ------------------------------------------------------------
-internet_gateway_enabled    = true
-nat_gateway_enabled         = true
-service_gateway_enabled     = false
-vcn_cidr                    = "10.0.0.0/16"
-public_netnum               = 0
-public_newbits              = 8
-private_netnum              = 1
-private_newbits             = 8
+compartment_id                       = ""
+label_prefix                         = "none"             # A string that will be prepended to all resources
+resource_name                        = ""                 # user-friendly string to name all resource. If undefined it will be derived from compartment name.
+tags                                 = {}                 # A simple key-value pairs to tag the resources created
 
 # Trivadis LAB specific parameter -------------------------------------------
-tvd_participants            = 1
-tvd_domain                  = "trivadislabs.com"
-tvd_dns_hostnum             = 4
-tvd_private_dns             = "default" 
-tvd_public_dns              = "8.8.8.8" 
+tvd_participants                     = 1                  # The number of VCNs to create
+tvd_domain                           = "trivadislabs.com" # The domain name of the LAB environment
+tvd_dns_hostnum                      = 4                  # The host number for the Trivadis LAB DNS server. This number is used to build the IP address using cidrhost function
+tvd_private_dns                      = "default"          # A private DNS IP address for the training environment
+tvd_public_dns                       = "8.8.8.8"          # A public DNS IP address for the training environment
+
+# VCN parameters ------------------------------------------------------------
+custom_dns_servers                   = []                 # List of custom DNS server
+inbound_http_access                  = true               # Flag indicating whether inbound HTTP/HTTPS access is to be granted, or not.
+inbound_http_port                    = 80                 # Inbound HTTP access port configured in security list.
+inbound_https_port                   = 443                # Inbound HTTPS access port configured in security list.
+inbound_mosh_port                    = 6000               # Inbound MOSH access port configured in security list.
+inbound_vpn_port                     = 1194               # Inbound OpenVPN access port configured in security list.
+internet_gateway_enabled             = true               # whether to create the internet gateway
+log_configuration_source_category    = "all"              # Log object category.
+log_configuration_source_service     = "flowlogs"         # Service generating log.
+log_configuration_source_source_type = "OCISERVICE"       # The log source.
+log_is_enabled                       = true               # Whether or not this resource is currently enabled.
+log_retention_duration               = 90                 # Log retention duration in 30-day increments (30, 60, 90 and so on).
+log_type                             = "SERVICE"          # The logType that the log object is for, whether custom or service.
+nat_gateway_enabled                  = true               # whether to create a nat gateway in the vcn
+outbound_http_access                 = true               # Flag indicating whether outbound HTTP/HTTPS access is to be granted, or not.
+outbound_http_port                   = 80                 # Outbound HTTP access port configured in security list.
+outbound_https_port                  = 443                # Outbound HTTPS access port configured in security list.
+outbound_port_range                  = true               # Flag indicating whether outbound TCP range access is to be granted, or not.
+outbound_port_range_max              = 20999              # Outbound max port for TCP range access configured in security list.
+outbound_port_range_min              = 15000              # Outbound min port for TCP range access configured in security list.
+private_netnum                       = 1                  # 0-based index of the private subnet when the VCN's CIDR is masked with the corresponding newbit value.
+private_newbits                      = 8                  # The difference between the VCN's netmask and the desired private subnet mask
+inbound_mosh_access                   = false              # Flag indicating whether public MOSH access is to be granted, or not.
+public_netnum                        = 0                  # 0-based index of the bastion subnet when the VCN's CIDR is masked with the corresponding newbit value.
+public_newbits                       = 8                  # The difference between the VCN's netmask and the desired bastion subnet mask
+inbound_ssh_access                    = true               # Flag indicating whether public SSH access is to be granted, or not.
+inbound_ssh_port                      = 22                 # Public SSH access port configured in security list.
+inbound_vpn_access                    = true               # Flag indicating whether public OpenVPN access is to be granted, or not.
+service_gateway_enabled              = false              # whether to create a service gateway
+vcn_cidr                             = "10.0.0.0/16"      # cidr block of VCN
 # --- EOF -------------------------------------------------------------------
