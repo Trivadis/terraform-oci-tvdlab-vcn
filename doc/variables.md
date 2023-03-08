@@ -32,15 +32,32 @@ Variables for the configuration of the terraform module, defined in [variables](
 | `public_newbits`           | The difference between the VCN's netmask and the desired public subnet mask.                             |            | 8           |
 | `private_netnum`           | 0-based index of the private subnet when the VCN's CIDR is masked with the corresponding *newbit* value. |            | 1           |
 | `private_newbits`          | The difference between the VCN's netmask and the desired private subnet mask.                            |            | 8           |
-| `public_ssh_access`        | Flag indicating whether public SSH access is to be granted, or not.                                      | true/false | true        |
-| `public_ssh_port`          | Public SSH access port configured in security list.                                                      | number     | 22          |
-| `public_http_access`       | Flag indicating whether public HTTP/HTTPS access is to be granted, or not.                               | true/false | true        |
-| `public_http_port`         | Public HTTP access port configured in security list.                                                     | number     | 80          |
-| `public_https_port`        | Public HTTPS access port configured in security list.                                                    | number     | 443         |
-| `public_vpn_access`        | Flag indicating whether public OpenVPN access is to be granted, or not.                                  | true/false | true        |
-| `public_vpn_port`          | Public OpenVPN access port configured in security list.                                                  | number     | 1194        |
-| `public_mosh_access`       | Flag indicating whether public MOSH access is to be granted, or not.                                     | true/false | true        |
-| `public_mosh_port`         | Public MOSH access port configured in security list.                                                     | number     | 6000        |
+| `inbound_ssh_access`       | Flag indicating whether public SSH access is to be granted, or not.                                      | true/false | true        |
+| `inbound_ssh_port`         | Public SSH access port configured in security list.                                                      | number     | 22          |
+| `inbound_http_access`      | Flag indicating whether public HTTP/HTTPS access is to be granted, or not.                               | true/false | true        |
+| `inbound_http_port`        | Public HTTP access port configured in security list.                                                     | number     | 80          |
+| `inbound_https_port`       | Public HTTPS access port configured in security list.                                                    | number     | 443         |
+| `inbound_vpn_access`       | Flag indicating whether public OpenVPN access is to be granted, or not.                                  | true/false | true        |
+| `inbound_vpn_port`         | Public OpenVPN access port configured in security list.                                                  | number     | 1194        |
+| `inbound_mosh_access`      | Flag indicating whether public MOSH access is to be granted, or not.                                     | true/false | true        |
+| `inbound_mosh_port`        | Public MOSH access port configured in security list.                                                     | number     | 6000        |
+| `outbound_http_access`     | Flag indicating whether outbound HTTP/HTTPS access is to be granted, or not.                             | true/false | true        |
+| `outbound_http_port`       | Outbound HTTP access port configured in security list.                                                   | number     | 80          |
+| `outbound_https_port`      | Outbound HTTPS access port configured in security list.                                                  | number     | 443         |
+| `outbound_port_range`      | Flag indicating whether outbound TCP range access is to be granted, or not.                              | true/false | true        |
+| `outbound_port_range_max`  | Outbound max port for TCP range access configured in security list.                                      | number     | 20999       |
+| `outbound_port_range_min`  | Outbound min port for TCP range access configured in security list.                                      | number     | 15000       |
+
+## VCN Log Variables
+
+| Parameter                              | Description                                                         | Values     | Default    |
+|----------------------------------------|---------------------------------------------------------------------|------------|------------|
+| `log_configuration_source_category`    | Log object category.                                                |            | all        |
+| `log_configuration_source_service`     | Service generating log.                                             |            | flowlogs   |
+| `log_configuration_source_source_type` | The log source.                                                     |            | OCISERVICE |
+| `log_is_enabled`                       | Whether or not this resource is currently enabled.                  | true/false | true       |
+| `log_retention_duration`               | Log retention duration in 30-day increments (30, 60, 90 and so on). |            | 90         |
+| `log_type`                             | The logType that the log object is for, whether custom or service.  |            | SERVICE    |
 
 ## Trivadis LAB
 
