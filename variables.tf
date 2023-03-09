@@ -90,7 +90,7 @@ variable "inbound_ssh_access" {
 }
 
 variable "inbound_ssh_port" {
-  description = "Public SSH access port configured in security list."
+  description = "Inbound SSH access port configured in security list."
   type        = number
   default     = 22
 }
