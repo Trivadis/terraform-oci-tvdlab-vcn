@@ -72,13 +72,6 @@ locals {
       description = "Allow outbound HTTP traffic"
   }]
 
-  egress_rule_dns = [{
-    min         = local.dns_port
-    max         = local.dns_port
-    protocol    = local.udp_protocol
-    description = "Allow outbound DNS traffic"
-  }]
-
   egress_rule_port_range = [{
     min         = var.outbound_port_range_min
     max         = var.outbound_port_range_max
@@ -87,7 +80,6 @@ locals {
   }]
 
   engress_rules = concat([],
-    local.egress_rule_dns,
     var.outbound_port_range == true ? local.egress_rule_port_range : [],
   var.outbound_http_access == true ? local.egress_rule_http : [])
 
