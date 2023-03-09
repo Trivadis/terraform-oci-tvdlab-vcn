@@ -15,3 +15,4 @@ provider.tf
  **/.vscode/*
 **/*.DS_Store
 test/*
+.terraform.lock.hcl

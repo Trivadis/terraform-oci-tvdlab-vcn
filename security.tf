@@ -55,7 +55,6 @@ resource "oci_core_default_security_list" "default_security_list" {
     description = "Allow outbound DNS traffic"
     destination = local.anywhere
     protocol    = local.udp_protocol
-    port        = local.dns_port
     udp_options {
       min = local.dns_port
       max = local.dns_port
