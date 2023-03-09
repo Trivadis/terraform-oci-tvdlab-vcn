@@ -32,8 +32,7 @@ locals {
     description = "Allow inbound SSH traffic"
   }]
   ingress_rule_vpn = [{
-    port = var.inbound_vpn_port
-    #protocol    = local.udp_protocol
+    port        = var.inbound_vpn_port
     protocol    = local.tcp_protocol
     description = "Allow inbound OpenVPN traffic"
   }]
@@ -78,6 +77,7 @@ locals {
     protocol    = local.udp_protocol
     description = "Allow outbound DNS traffic"
   }]
+
   egress_rule_port_range = [{
     min         = var.outbound_port_range_min
     max         = var.outbound_port_range_max
@@ -86,7 +86,7 @@ locals {
   }]
 
   engress_rules = concat([],
-    local.egress_rule_port_range,
+    local.egress_rule_dns,
     var.outbound_port_range == true ? local.egress_rule_port_range : [],
   var.outbound_http_access == true ? local.egress_rule_http : [])
 
