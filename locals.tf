@@ -19,6 +19,7 @@ locals {
   icmp_protocol = 1
   tcp_protocol  = 6
   udp_protocol  = 17
+  dns_port      = 53
   ssh_port      = 22
   http_port     = 80
   https_port    = 443
@@ -72,6 +73,11 @@ locals {
       description = "Allow outbound HTTP traffic"
   }]
 
+  egress_rule_dns = [{
+    port        = local.dns_port
+    protocol    = local.udp_protocol
+    description = "Allow outbound DNS traffic"
+  }]
   egress_rule_port_range = [{
     min         = var.outbound_port_range_min
     max         = var.outbound_port_range_max
@@ -80,6 +86,7 @@ locals {
   }]
 
   engress_rules = concat([],
+    local.egress_rule_port_range,
     var.outbound_port_range == true ? local.egress_rule_port_range : [],
   var.outbound_http_access == true ? local.egress_rule_http : [])
 
