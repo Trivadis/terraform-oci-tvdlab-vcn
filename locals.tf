@@ -73,8 +73,8 @@ locals {
   }]
 
   egress_rule_dns = [{
-    min         = var.dns_port
-    max         = var.dns_port
+    min         = local.dns_port
+    max         = local.dns_port
     protocol    = local.udp_protocol
     description = "Allow outbound DNS traffic"
   }]
