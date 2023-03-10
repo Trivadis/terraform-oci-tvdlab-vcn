@@ -62,6 +62,13 @@ resource "oci_core_default_security_list" "default_security_list" {
   }
 
   # Allow RDP traffic in subnets
+  egress_security_rules {
+    description = "Allow all traffic in private subnet"
+    destination = var.vcn_cidr
+    protocol    = local.all_protocols
+  }
+
+  # Allow RDP traffic in subnets
   ingress_security_rules {
     description = "Allow RDP traffic in subnets"
     protocol    = local.tcp_protocol
