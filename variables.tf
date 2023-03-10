@@ -15,11 +15,6 @@
 # ---------------------------------------------------------------------------
 
 # provider identity parameters ----------------------------------------------
-variable "region" {
-  # List of regions: https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm#ServiceAvailabilityAcrossRegions
-  description = "The OCI region where resources will be created"
-  type        = string
-}
 
 # general oci parameters ----------------------------------------------------
 variable "compartment_id" {
