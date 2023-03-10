@@ -21,10 +21,10 @@ resource "oci_core_subnet" "public_subnet" {
   cidr_block        = cidrsubnet(var.vcn_cidr, var.public_newbits, var.public_netnum)
   display_name      = var.label_prefix == "none" ? format("${local.resource_shortname}%02d public subnet", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d public subnet", count.index)
   dns_label         = local.public_dns_label
-  vcn_id            = oci_core_vcn.vcn.*.id[count.index]
-  security_list_ids = [oci_core_vcn.vcn.*.default_security_list_id[count.index]]
-  route_table_id    = oci_core_vcn.vcn.*.default_route_table_id[count.index]
-  dhcp_options_id   = oci_core_vcn.vcn.*.default_dhcp_options_id[count.index]
+  vcn_id            = oci_core_vcn.vcn[count.index].id
+  security_list_ids = [oci_core_vcn.vcn[count.index].default_security_list_id]
+  route_table_id    = oci_core_vcn.vcn[count.index].default_route_table_id
+  dhcp_options_id   = oci_core_vcn.vcn[count.index].default_dhcp_options_id
 }
 
 # create private subnet -----------------------------------------------------
@@ -35,9 +35,9 @@ resource "oci_core_subnet" "private_subnet" {
   display_name               = var.label_prefix == "none" ? format("${local.resource_shortname}%02d private subnet", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d private subnet", count.index)
   dns_label                  = local.private_dns_label
   prohibit_public_ip_on_vnic = true
-  vcn_id                     = oci_core_vcn.vcn.*.id[count.index]
-  security_list_ids          = [oci_core_vcn.vcn.*.default_security_list_id[count.index]]
-  route_table_id             = oci_core_route_table.private_route_table.*.id[count.index]
-  dhcp_options_id            = oci_core_dhcp_options.private_dhcp_option.*.id[count.index]
+  vcn_id                     = oci_core_vcn.vcn[count.index].id
+  security_list_ids          = [oci_core_vcn.vcn[count.index].default_security_list_id]
+  route_table_id             = oci_core_route_table.private_route_table[count.index].id
+  dhcp_options_id            = oci_core_dhcp_options.private_dhcp_option[count.index].id
 }
 # --- EOF -------------------------------------------------------------------
