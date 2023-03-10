@@ -68,25 +68,13 @@ resource "oci_core_default_security_list" "default_security_list" {
     protocol    = local.all_protocols
   }
 
-  # Allow RDP traffic in subnets
-  ingress_security_rules {
-    description = "Allow RDP traffic in subnets"
-    protocol    = local.tcp_protocol
-    source      = var.vcn_cidr
-
-    tcp_options {
-      min = local.rdp_port
-      max = local.rdp_port
-    }
-  }
-
   # default
   ingress_security_rules {
     protocol = local.icmp_protocol
     source   = local.anywhere
 
     icmp_options {
-      code = 4
+      code = 11
       type = 3
     }
   }
