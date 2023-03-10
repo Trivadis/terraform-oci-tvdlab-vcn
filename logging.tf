@@ -24,9 +24,9 @@ resource "oci_logging_log_group" "log_group" {
 }
 
 # create a default log --------------------------------------------
-resource "oci_logging_log" "default_log" {
+resource "oci_logging_log" "default_log_private_subnet" {
   count        = var.tvd_participants
-  display_name = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_log", count.index) : format("${var.label_prefix}-${local.resource_shortname}%02d_log", count.index)
+  display_name = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_log_private_subnet", count.index) : format("${var.label_prefix}-${local.resource_shortname}%02d_log_private_subnet", count.index)
   log_group_id = oci_logging_log_group.log_group[count.index].id
   log_type     = var.log_type
 
@@ -44,4 +44,27 @@ resource "oci_logging_log" "default_log" {
   is_enabled         = var.log_is_enabled
   retention_duration = var.log_retention_duration
 }
+
+# create a default log --------------------------------------------
+resource "oci_logging_log" "default_log_public_subnet" {
+  count        = var.tvd_participants
+  display_name = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_log_public_subnet", count.index) : format("${var.label_prefix}-${local.resource_shortname}%02d_log_public_subnet", count.index)
+  log_group_id = oci_logging_log_group.log_group[count.index].id
+  log_type     = var.log_type
+
+  configuration {
+    source {
+      category    = var.log_configuration_source_category
+      resource    = oci_core_subnet.public_subnet[count.index].id
+      service     = var.log_configuration_source_service
+      source_type = var.log_configuration_source_source_type
+    }
+
+    compartment_id = var.compartment_id
+  }
+  freeform_tags      = var.tags
+  is_enabled         = var.log_is_enabled
+  retention_duration = var.log_retention_duration
+}
+
 # --- EOF -------------------------------------------------------------------
