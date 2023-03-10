@@ -27,7 +27,7 @@ resource "oci_core_vcn" "vcn" {
 # create public DHCP option -------------------------------------------------
 resource "oci_core_default_dhcp_options" "public_dhcp_option" {
   count                      = var.tvd_participants
-  manage_default_resource_id = oci_core_vcn.vcn.*.default_dhcp_options_id[count.index]
+  manage_default_resource_id = oci_core_vcn.vcn[count.index].default_dhcp_options_id
   display_name               = var.label_prefix == "none" ? format("${local.resource_shortname}%02d public dhcp", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d public dhcp", count.index)
 
   options {
@@ -48,7 +48,7 @@ resource "oci_core_default_dhcp_options" "public_dhcp_option" {
 resource "oci_core_dhcp_options" "private_dhcp_option" {
   count          = var.tvd_participants
   compartment_id = var.compartment_id
-  vcn_id         = oci_core_vcn.vcn.*.id[count.index]
+  vcn_id         = oci_core_vcn.vcn[count.index].id
   display_name   = var.label_prefix == "none" ? format("${local.resource_shortname}%02d private dhcp", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d private dhcp", count.index)
 
   # domain names server
@@ -71,7 +71,7 @@ resource "oci_core_internet_gateway" "igw" {
   compartment_id = var.compartment_id
   display_name   = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_igw", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d_igw", count.index)
 
-  vcn_id        = oci_core_vcn.vcn.*.id[count.index]
+  vcn_id        = oci_core_vcn.vcn[count.index].id
   enabled       = "true"
   freeform_tags = var.tags
 }
@@ -80,12 +80,12 @@ resource "oci_core_internet_gateway" "igw" {
 resource "oci_core_default_route_table" "default_route_table" {
   count                      = var.internet_gateway_enabled == true ? var.tvd_participants : 0
   display_name               = var.label_prefix == "none" ? format("${local.resource_shortname}%02d internet route", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d internet route", count.index)
-  manage_default_resource_id = oci_core_vcn.vcn.*.default_route_table_id[count.index]
+  manage_default_resource_id = oci_core_vcn.vcn[count.index].default_route_table_id
   freeform_tags              = var.tags
 
   route_rules {
     destination       = local.anywhere
-    network_entity_id = oci_core_internet_gateway.igw.*.id[count.index]
+    network_entity_id = oci_core_internet_gateway.igw[count.index].id
   }
 }
 # --- EOF -------------------------------------------------------------------
