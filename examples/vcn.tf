@@ -15,7 +15,7 @@
 # ------------------------------------------------------------------------------
 module "tvdlab-vcn" {
   source  = "Trivadis/tvdlab-vcn/oci"
-  version = ">= 3.2.0" # to limit module version specifiy upper / lower version = ">= 0.5.0, < 2.0.0"
+  version = ">= 3.3.0" # to limit module version specifiy upper / lower version = ">= 0.5.0, < 2.0.0"
 
   # - Mandatory Parameters -----------------------------------------------------
   compartment_id = var.compartment_ocid
