@@ -27,13 +27,13 @@ resource "oci_logging_log_group" "log_group" {
 resource "oci_logging_log" "default_log" {
   count        = var.tvd_participants
   display_name = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_log", count.index) : format("${var.label_prefix}-${local.resource_shortname}%02d_log", count.index)
-  log_group_id = oci_logging_log_group.log_group.*.id[count.index]
+  log_group_id = oci_logging_log_group.log_group[count.index].id
   log_type     = var.log_type
 
   configuration {
     source {
       category    = var.log_configuration_source_category
-      resource    = oci_core_subnet.private_subnet.*.id[count.index]
+      resource    = oci_core_subnet.private_subnet[count.index].id
       service     = var.log_configuration_source_service
       source_type = var.log_configuration_source_source_type
     }

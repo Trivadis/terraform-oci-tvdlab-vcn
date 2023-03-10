@@ -17,7 +17,7 @@
 # create default security list
 resource "oci_core_default_security_list" "default_security_list" {
   count                      = var.tvd_participants
-  manage_default_resource_id = oci_core_vcn.vcn.*.default_security_list_id[count.index]
+  manage_default_resource_id = oci_core_vcn.vcn[count.index].default_security_list_id
   display_name               = var.label_prefix == "none" ? format("${local.resource_shortname}%02d default security list", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d default security list", count.index)
 
   # conditionally configure egress rules

@@ -20,12 +20,7 @@ locals {
   tcp_protocol  = 6
   udp_protocol  = 17
   dns_port      = 53
-  ssh_port      = 22
-  http_port     = 80
-  https_port    = 443
-  openvpn_port  = 1194
-  rdp_port      = 3389
-  mosh_port     = 6000
+
   ingress_rule_ssh = [{
     port        = var.inbound_ssh_port
     protocol    = local.tcp_protocol
@@ -90,6 +85,6 @@ locals {
   private_dns_label   = "private"
   default_private_dns = cidrhost(cidrsubnet(var.vcn_cidr, var.private_newbits, var.private_netnum), var.tvd_dns_hostnum)
   tvd_private_dns     = var.tvd_private_dns == "default" ? local.default_private_dns : var.tvd_private_dns
-  custom_dns_servers  = var.custom_dns_servers == [] ? [local.tvd_private_dns, var.tvd_public_dns] : var.custom_dns_servers
+  custom_dns_servers  = length(var.custom_dns_servers) == 0 ? [local.tvd_private_dns, var.tvd_public_dns] : var.custom_dns_servers
 }
 # --- EOF -------------------------------------------------------------------
