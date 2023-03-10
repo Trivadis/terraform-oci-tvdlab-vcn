@@ -16,6 +16,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [3.3.0] - 2023-03-10
+
+### Added
+
+- add log group for public subnet
+
+### Changed
+
+- change log group names
+
 ## [3.2.0] - 2023-03-10
 
 ### Changed
