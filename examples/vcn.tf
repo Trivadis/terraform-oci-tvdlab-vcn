@@ -16,9 +16,9 @@
 module "tvdlab-vcn" {
   source = "Trivadis/tvdlab-vcn/oci"
   # limit module version using ~>, allows only the rightmost version component to increment
-  # e.g. 3.3.2 and 3.3.10 but not 3.4.0 see
+  # e.g. 4.0.2 and 4.0.10 but not 4.1.0 see
   # https://developer.hashicorp.com/terraform/language/expressions/version-constraints
-  version = "~> 3.3.0"
+  version = "~> 4.0.0"
 
   # - Mandatory Parameters -----------------------------------------------------
   compartment_id = var.compartment_ocid
