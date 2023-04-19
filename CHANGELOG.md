@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - rename *tvd_dns_hostnum* to *lab_dns_hostnum*
 - rename *tvd_public_dns* to *lab_public_dns*
 - rename *tvd_private_dns* to *lab_private_dns*
+- update required terraform version to *1.0.0*
 
 ## [3.3.0] - 2023-03-10
 

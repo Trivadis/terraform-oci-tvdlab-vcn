@@ -1,21 +1,21 @@
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Trivadis - Part of Accenture, Platform Factory - Data Platforms
 # Saegereistrasse 29, 8152 Glattbrugg, Switzerland
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Name.......: logging.tf
 # Author.....: Stefan Oehrli (oes) stefan.oehrli@accenture.com
 # Editor.....: Stefan Oehrli
-# Date.......: 2020.10.12
+# Date.......: 2023.04.19
 # Revision...: 
 # Purpose....: Define OCI Log Group for private subnet.
 # Notes......: -- 
 # Reference..: --
 # License....: Apache License Version 2.0, January 2004 as shown
 #              at http://www.apache.org/licenses/
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 
-# create the log group -------------------------------------------
+# create the log group ---------------------------------------------------------
 resource "oci_logging_log_group" "log_group" {
   count          = var.numberOf_labs
   compartment_id = var.compartment_id
@@ -23,7 +23,7 @@ resource "oci_logging_log_group" "log_group" {
   freeform_tags  = var.tags
 }
 
-# create a default log --------------------------------------------
+# create a default log ---------------------------------------------------------
 resource "oci_logging_log" "default_log_private_subnet" {
   count        = var.numberOf_labs
   display_name = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_log_private_subnet", count.index) : format("${var.label_prefix}-${local.resource_shortname}%02d_log_private_subnet", count.index)
@@ -45,7 +45,7 @@ resource "oci_logging_log" "default_log_private_subnet" {
   retention_duration = var.log_retention_duration
 }
 
-# create a default log --------------------------------------------
+# create a default log ---------------------------------------------------------
 resource "oci_logging_log" "default_log_public_subnet" {
   count        = var.numberOf_labs
   display_name = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_log_public_subnet", count.index) : format("${var.label_prefix}-${local.resource_shortname}%02d_log_public_subnet", count.index)
@@ -67,4 +67,4 @@ resource "oci_logging_log" "default_log_public_subnet" {
   retention_duration = var.log_retention_duration
 }
 
-# --- EOF -------------------------------------------------------------------
+# --- EOF ----------------------------------------------------------------------

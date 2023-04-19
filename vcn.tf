@@ -1,20 +1,20 @@
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Trivadis - Part of Accenture, Platform Factory - Data Platforms
 # Saegereistrasse 29, 8152 Glattbrugg, Switzerland
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Name.......: vcn.tf
 # Author.....: Stefan Oehrli (oes) stefan.oehrli@accenture.com
 # Editor.....: Stefan Oehrli
-# Date.......: 2020.10.12
+# Date.......: 2023.04.19
 # Revision...: 
 # Purpose....: Define VCN resources for the terraform module tvdlab vcn.
 # Notes......: -- 
 # Reference..: --
 # License....: Apache License Version 2.0, January 2004 as shown
 #              at http://www.apache.org/licenses/
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
-# VCN resource --------------------------------------------------------------
+# VCN resource -----------------------------------------------------------------
 resource "oci_core_vcn" "vcn" {
   count          = var.numberOf_labs
   cidr_block     = var.vcn_cidr
@@ -24,7 +24,7 @@ resource "oci_core_vcn" "vcn" {
   freeform_tags  = var.tags
 }
 
-# create public DHCP option -------------------------------------------------
+# create public DHCP option ----------------------------------------------------
 resource "oci_core_default_dhcp_options" "public_dhcp_option" {
   count                      = var.numberOf_labs
   manage_default_resource_id = oci_core_vcn.vcn[count.index].default_dhcp_options_id
@@ -44,7 +44,7 @@ resource "oci_core_default_dhcp_options" "public_dhcp_option" {
   }
 }
 
-# create private DHCP option ------------------------------------------------
+# create private DHCP option ---------------------------------------------------
 resource "oci_core_dhcp_options" "private_dhcp_option" {
   count          = var.numberOf_labs
   compartment_id = var.compartment_id
@@ -65,7 +65,7 @@ resource "oci_core_dhcp_options" "private_dhcp_option" {
   }
 }
 
-# create the internet gateway resource --------------------------------------
+# create the internet gateway resource -----------------------------------------
 resource "oci_core_internet_gateway" "igw" {
   count          = var.internet_gateway_enabled == true ? var.numberOf_labs : 0
   compartment_id = var.compartment_id
@@ -76,7 +76,7 @@ resource "oci_core_internet_gateway" "igw" {
   freeform_tags = var.tags
 }
 
-# create a default routing table --------------------------------------------
+# create a default routing table -----------------------------------------------
 resource "oci_core_default_route_table" "default_route_table" {
   count                      = var.internet_gateway_enabled == true ? var.numberOf_labs : 0
   display_name               = var.label_prefix == "none" ? format("${local.resource_shortname}%02d internet route", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d internet route", count.index)
@@ -88,4 +88,4 @@ resource "oci_core_default_route_table" "default_route_table" {
     network_entity_id = oci_core_internet_gateway.igw[count.index].id
   }
 }
-# --- EOF -------------------------------------------------------------------
+# --- EOF ----------------------------------------------------------------------

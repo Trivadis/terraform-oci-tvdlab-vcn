@@ -1,22 +1,22 @@
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Trivadis - Part of Accenture, Platform Factory - Data Platforms
 # Saegereistrasse 29, 8152 Glattbrugg, Switzerland
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Name.......: variables.tf
 # Author.....: Stefan Oehrli (oes) stefan.oehrli@accenture.com
 # Editor.....: Stefan Oehrli
-# Date.......: 2020.10.12
+# Date.......: 2023.04.19
 # Revision...: 
 # Purpose....: Variable definition file for the terraform module tvdlab vcn.
 # Notes......: -- 
 # Reference..: --
 # License....: Apache License Version 2.0, January 2004 as shown
 #              at http://www.apache.org/licenses/
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
-# provider identity parameters ----------------------------------------------
+# provider identity parameters -------------------------------------------------
 
-# general oci parameters ----------------------------------------------------
+# general oci parameters -------------------------------------------------------
 variable "compartment_id" {
   description = "OCID of the compartment where to create all resources"
   type        = string
@@ -40,7 +40,7 @@ variable "tags" {
   default     = {}
 }
 
-# VCN parameters ------------------------------------------------------------
+# VCN parameters ---------------------------------------------------------------
 variable "internet_gateway_enabled" {
   description = "whether to create the internet gateway"
   default     = true
@@ -65,7 +65,7 @@ variable "vcn_cidr" {
   type        = string
 }
 
-# Public Subnet parameters --------------------------------------------------
+# Public Subnet parameters -----------------------------------------------------
 variable "public_netnum" {
   description = "0-based index of the bastion subnet when the VCN's CIDR is masked with the corresponding newbit value."
   default     = 0
@@ -85,7 +85,7 @@ variable "inbound_ssh_access" {
 }
 
 variable "inbound_ssh_port" {
-  description = "Inbound SSH access port configured in security list."
+  description = "Public SSH access port configured in security list."
   type        = number
   default     = 22
 }
@@ -170,7 +170,7 @@ variable "inbound_mosh_port" {
   default     = 6000
 }
 
-# Private Subnet parameters -------------------------------------------------
+# Private Subnet parameters ----------------------------------------------------
 variable "private_netnum" {
   description = "0-based index of the private subnet when the VCN's CIDR is masked with the corresponding newbit value."
   default     = 1
@@ -183,7 +183,7 @@ variable "private_newbits" {
   type        = number
 }
 
-# Trivadis LAB specific parameter -------------------------------------------
+# LAB specific parameter -------------------------------------------------------
 variable "numberOf_labs" {
   description = "Number of similar lab environments to be created. Default just one environment."
   type        = number
@@ -197,7 +197,7 @@ variable "lab_domain" {
 }
 
 variable "lab_dns_hostnum" {
-  description = "The host number for the Trivadis LAB DNS server. This number is used to build the IP address using cidrhost function"
+  description = "The host number for the LAB DNS server. This number is used to build the IP address using cidrhost function"
   type        = number
   default     = 4
 }
@@ -220,7 +220,7 @@ variable "lab_public_dns" {
   default     = "8.8.8.8"
 }
 
-# Log parameter -------------------------------------------------------------
+# Log parameter ----------------------------------------------------------------
 variable "log_is_enabled" {
   description = "Whether or not this resource is currently enabled."
   default     = true
@@ -256,5 +256,4 @@ variable "log_configuration_source_source_type" {
   type        = string
   default     = "OCISERVICE"
 }
-
-# --- EOF -------------------------------------------------------------------
+# --- EOF ----------------------------------------------------------------------

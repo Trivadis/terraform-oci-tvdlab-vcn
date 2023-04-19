@@ -1,21 +1,21 @@
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Trivadis - Part of Accenture, Platform Factory - Data Platforms
 # Saegereistrasse 29, 8152 Glattbrugg, Switzerland
-# ---------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Name.......: nat.tf
 # Author.....: Stefan Oehrli (oes) stefan.oehrli@accenture.com
 # Editor.....: Stefan Oehrli
-# Date.......: 2020.10.12
+# Date.......: 2023.04.19
 # Revision...: 
 # Purpose....: Define NAT resources for the terraform module tvdlab vcn.
 # Notes......: -- 
 # Reference..: --
 # License....: Apache License Version 2.0, January 2004 as shown
 #              at http://www.apache.org/licenses/
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 
-# create the nat gateway resource -------------------------------------------
+# create the nat gateway resource ----------------------------------------------
 resource "oci_core_nat_gateway" "natgw" {
   count          = var.nat_gateway_enabled == true ? var.numberOf_labs : 0
   compartment_id = var.compartment_id
@@ -25,7 +25,7 @@ resource "oci_core_nat_gateway" "natgw" {
   freeform_tags  = var.tags
 }
 
-# create a default routing table --------------------------------------------
+# create a default routing table -----------------------------------------------
 resource "oci_core_route_table" "private_route_table" {
   count          = var.nat_gateway_enabled == true ? var.numberOf_labs : 0
   compartment_id = var.compartment_id
@@ -48,4 +48,4 @@ resource "oci_core_route_table" "private_route_table" {
     }
   }
 }
-# --- EOF -------------------------------------------------------------------
+# --- EOF ----------------------------------------------------------------------

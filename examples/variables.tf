@@ -1,27 +1,27 @@
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Trivadis - Part of Accenture, Platform Factory - Data Platforms
 # Saegereistrasse 29, 8152 Glattbrugg, Switzerland
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Name.......: variables.tf
 # Author.....: Stefan Oehrli (oes) stefan.oehrli@accenture.com
 # Editor.....: Stefan Oehrli
-# Date.......: 2020.10.12
+# Date.......: 2023.04.19
 # Revision...: 
 # Purpose....: Variable definition file for the terraform module tvdlab vcn.
 # Notes......: -- 
 # Reference..: --
 # License....: Apache License Version 2.0, January 2004 as shown
 #              at http://www.apache.org/licenses/
-# ---------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
-# provider identity parameters ----------------------------------------------
+# provider identity parameters -------------------------------------------------
 variable "region" {
   # List of regions: https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm#ServiceAvailabilityAcrossRegions
   description = "The OCI region where resources will be created"
   type        = string
 }
 
-# general oci parameters ----------------------------------------------------
+# general oci parameters -------------------------------------------------------
 variable "compartment_id" {
   description = "OCID of the compartment where to create all resources"
   type        = string
@@ -45,7 +45,7 @@ variable "tags" {
   default     = {}
 }
 
-# VCN parameters ------------------------------------------------------------
+# VCN parameters ---------------------------------------------------------------
 variable "internet_gateway_enabled" {
   description = "whether to create the internet gateway"
   default     = true
@@ -70,7 +70,7 @@ variable "vcn_cidr" {
   type        = string
 }
 
-# Public Subnet parameters --------------------------------------------------
+# Public Subnet parameters -----------------------------------------------------
 variable "public_netnum" {
   description = "0-based index of the bastion subnet when the VCN's CIDR is masked with the corresponding newbit value."
   default     = 0
@@ -175,7 +175,7 @@ variable "inbound_mosh_port" {
   default     = 6000
 }
 
-# Private Subnet parameters -------------------------------------------------
+# Private Subnet parameters ----------------------------------------------------
 variable "private_netnum" {
   description = "0-based index of the private subnet when the VCN's CIDR is masked with the corresponding newbit value."
   default     = 1
@@ -225,7 +225,7 @@ variable "lab_public_dns" {
   default     = "8.8.8.8"
 }
 
-# Log parameter -------------------------------------------------------------
+# Log parameter ----------------------------------------------------------------
 variable "log_is_enabled" {
   description = "Whether or not this resource is currently enabled."
   default     = true
@@ -261,5 +261,4 @@ variable "log_configuration_source_source_type" {
   type        = string
   default     = "OCISERVICE"
 }
-
-# --- EOF -------------------------------------------------------------------
+# --- EOF ----------------------------------------------------------------------
