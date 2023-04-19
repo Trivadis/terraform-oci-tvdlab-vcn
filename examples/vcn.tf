@@ -26,12 +26,12 @@ module "tvdlab-vcn" {
   # - Optional Parameters ------------------------------------------------------
   resource_name = local.resource_name # user-friendly string to name all resource. If undefined it will be derived from compartment name.
 
-  # Trivadis LAB specific parameter 
+  # LAB specific parameter 
   lab_domain         = var.lab_domain          # The domain name of the LAB environment
   numberOf_labs      = var.numberOf_labs       # The number of VCNs to create
   label_prefix       = lower(var.label_prefix) # A string that will be prepended to all resources
   tags               = var.tags                # A simple key-value pairs to tag the resources created
-  lab_dns_hostnum    = var.lab_dns_hostnum     # The host number for the Trivadis LAB DNS server. This number is used to build the IP address using cidrhost function
+  lab_dns_hostnum    = var.lab_dns_hostnum     # The host number for the LAB DNS server. This number is used to build the IP address using cidrhost function
   custom_dns_servers = var.custom_dns_servers  # List of custom DNS server
   lab_private_dns    = var.lab_private_dns     # A private DNS IP address for the training environment
   lab_public_dns     = var.lab_public_dns      # A public DNS IP address for the training environment

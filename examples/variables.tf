@@ -188,7 +188,7 @@ variable "private_newbits" {
   type        = number
 }
 
-# Trivadis LAB specific parameter -------------------------------------------
+# LAB specific parameter -------------------------------------------------------
 variable "numberOf_labs" {
   description = "Number of similar lab environments to be created. Default just one environment."
   type        = number
@@ -202,7 +202,7 @@ variable "lab_domain" {
 }
 
 variable "lab_dns_hostnum" {
-  description = "The host number for the Trivadis LAB DNS server. This number is used to build the IP address using cidrhost function"
+  description = "The host number for the LAB DNS server. This number is used to build the IP address using cidrhost function"
   type        = number
   default     = 4
 }
