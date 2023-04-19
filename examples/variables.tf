@@ -201,7 +201,7 @@ variable "lab_domain" {
   default     = "trivadislabs.com"
 }
 
-variable "tvd_dns_hostnum" {
+variable "lab_dns_hostnum" {
   description = "The host number for the Trivadis LAB DNS server. This number is used to build the IP address using cidrhost function"
   type        = number
   default     = 4
