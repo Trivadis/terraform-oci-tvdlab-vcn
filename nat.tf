@@ -17,7 +17,7 @@
 
 # create the nat gateway resource -------------------------------------------
 resource "oci_core_nat_gateway" "natgw" {
-  count          = var.nat_gateway_enabled == true ? var.tvd_participants : 0
+  count          = var.nat_gateway_enabled == true ? var.numberOf_labs : 0
   compartment_id = var.compartment_id
   display_name   = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_natgw", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d_natgw", count.index)
   vcn_id         = oci_core_vcn.vcn[count.index].id
@@ -27,7 +27,7 @@ resource "oci_core_nat_gateway" "natgw" {
 
 # create a default routing table --------------------------------------------
 resource "oci_core_route_table" "private_route_table" {
-  count          = var.nat_gateway_enabled == true ? var.tvd_participants : 0
+  count          = var.nat_gateway_enabled == true ? var.numberOf_labs : 0
   compartment_id = var.compartment_id
   display_name   = var.label_prefix == "none" ? format("${local.resource_shortname}%02d private route", count.index) : format("${var.label_prefix} ${local.resource_shortname}%02d private route", count.index)
   vcn_id         = oci_core_vcn.vcn[count.index].id

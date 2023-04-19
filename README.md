@@ -41,7 +41,7 @@ module "tvdlab-vcn" {
 }
 ```
 
-To create multiple VCNs just specify the `tvd_participants` parameter. The following example will create 3 equal VCN where each VCN is named according its number and the compartment or if specified according to the variable `resource_name`. e.g. for a compartment O-SEC it will create VCN *osec00*, *osec01* and *osec02*. The naming schema will also be used for all other resources.
+To create multiple VCNs just specify the `numberOf_labs` parameter. The following example will create 3 equal VCN where each VCN is named according its number and the compartment or if specified according to the variable `resource_name`. e.g. for a compartment O-SEC it will create VCN *osec00*, *osec01* and *osec02*. The naming schema will also be used for all other resources.
 
 ```bash
 module "tvdlab-vcn" {
@@ -51,7 +51,7 @@ module "tvdlab-vcn" {
   # - Mandatory Parameters --------------------------------------------------
   region            = var.region
   compartment_id    = var.compartment_id
-  tvd_participants  = 3
+  numberOf_labs  = 3
 }
 ```
 

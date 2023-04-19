@@ -189,8 +189,8 @@ variable "private_newbits" {
 }
 
 # Trivadis LAB specific parameter -------------------------------------------
-variable "tvd_participants" {
-  description = "The number of VCNs to create"
+variable "numberOf_labs" {
+  description = "Number of similar lab environments to be created. Default just one environment."
   type        = number
   default     = 1
 }

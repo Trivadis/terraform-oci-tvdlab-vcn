@@ -17,7 +17,7 @@
 
 # create the log group -------------------------------------------
 resource "oci_logging_log_group" "log_group" {
-  count          = var.tvd_participants
+  count          = var.numberOf_labs
   compartment_id = var.compartment_id
   display_name   = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_log_group", count.index) : format("${var.label_prefix}-${local.resource_shortname}%02d_log_group", count.index)
   freeform_tags  = var.tags
@@ -25,7 +25,7 @@ resource "oci_logging_log_group" "log_group" {
 
 # create a default log --------------------------------------------
 resource "oci_logging_log" "default_log_private_subnet" {
-  count        = var.tvd_participants
+  count        = var.numberOf_labs
   display_name = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_log_private_subnet", count.index) : format("${var.label_prefix}-${local.resource_shortname}%02d_log_private_subnet", count.index)
   log_group_id = oci_logging_log_group.log_group[count.index].id
   log_type     = var.log_type
@@ -47,7 +47,7 @@ resource "oci_logging_log" "default_log_private_subnet" {
 
 # create a default log --------------------------------------------
 resource "oci_logging_log" "default_log_public_subnet" {
-  count        = var.tvd_participants
+  count        = var.numberOf_labs
   display_name = var.label_prefix == "none" ? format("${local.resource_shortname}%02d_log_public_subnet", count.index) : format("${var.label_prefix}-${local.resource_shortname}%02d_log_public_subnet", count.index)
   log_group_id = oci_logging_log_group.log_group[count.index].id
   log_type     = var.log_type

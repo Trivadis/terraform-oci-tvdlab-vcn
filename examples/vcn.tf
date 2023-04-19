@@ -28,7 +28,7 @@ module "tvdlab-vcn" {
 
   # Trivadis LAB specific parameter 
   tvd_domain         = var.tvd_domain          # The domain name of the LAB environment
-  tvd_participants   = var.tvd_participants    # The number of VCNs to create
+  numberOf_labs      = var.numberOf_labs       # The number of VCNs to create
   label_prefix       = lower(var.label_prefix) # A string that will be prepended to all resources
   tags               = var.tags                # A simple key-value pairs to tag the resources created
   tvd_dns_hostnum    = var.tvd_dns_hostnum     # The host number for the Trivadis LAB DNS server. This number is used to build the IP address using cidrhost function

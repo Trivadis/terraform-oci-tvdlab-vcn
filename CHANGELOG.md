@@ -16,6 +16,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [4.0.0] - 2023-04-19
+
+### Changed
+
+- rename *tvd_participants* to *numberOf_labs*
+
 ## [3.3.0] - 2023-03-10
 
 ### Added
