@@ -219,7 +219,7 @@ variable "tvd_private_dns" {
   default     = "default"
 }
 
-variable "tvd_public_dns" {
+variable "lab_public_dns" {
   description = "A public DNS IP address for the training environment"
   type        = string
   default     = "8.8.8.8"

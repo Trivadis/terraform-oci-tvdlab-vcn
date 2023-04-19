@@ -34,7 +34,7 @@ module "tvdlab-vcn" {
   lab_dns_hostnum    = var.lab_dns_hostnum     # The host number for the Trivadis LAB DNS server. This number is used to build the IP address using cidrhost function
   custom_dns_servers = var.custom_dns_servers  # List of custom DNS server
   tvd_private_dns    = var.tvd_private_dns     # A private DNS IP address for the training environment
-  tvd_public_dns     = var.tvd_public_dns      # A public DNS IP address for the training environment
+  lab_public_dns     = var.lab_public_dns      # A public DNS IP address for the training environment
 
   # VCN Network parameter
   nat_gateway_enabled      = var.nat_gateway_enabled      # whether to create a nat gateway in the vcn

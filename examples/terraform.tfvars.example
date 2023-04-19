@@ -31,7 +31,7 @@ numberOf_labs                     = 1                  # Number of similar lab e
 lab_domain                           = "trivadislabs.com" # The domain name of the LAB environment
 lab_dns_hostnum                      = 4                  # The host number for the Trivadis LAB DNS server. This number is used to build the IP address using cidrhost function
 tvd_private_dns                      = "default"          # A private DNS IP address for the training environment
-tvd_public_dns                       = "8.8.8.8"          # A public DNS IP address for the training environment
+lab_public_dns                       = "8.8.8.8"          # A public DNS IP address for the training environment
 
 # VCN parameters ------------------------------------------------------------
 custom_dns_servers                   = []                 # List of custom DNS server
