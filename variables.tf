@@ -190,7 +190,7 @@ variable "numberOf_labs" {
   default     = 1
 }
 
-variable "tvd_domain" {
+variable "lab_domain" {
   description = "The domain name of the LAB environment"
   type        = string
   default     = "trivadislabs.com"

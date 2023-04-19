@@ -61,7 +61,7 @@ resource "oci_core_dhcp_options" "private_dhcp_option" {
   # search domain
   options {
     type                = "SearchDomain"
-    search_domain_names = [var.tvd_domain]
+    search_domain_names = [var.lab_domain]
   }
 }
 

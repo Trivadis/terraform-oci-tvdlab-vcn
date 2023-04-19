@@ -27,7 +27,7 @@ module "tvdlab-vcn" {
   resource_name = local.resource_name # user-friendly string to name all resource. If undefined it will be derived from compartment name.
 
   # Trivadis LAB specific parameter 
-  tvd_domain         = var.tvd_domain          # The domain name of the LAB environment
+  lab_domain         = var.lab_domain          # The domain name of the LAB environment
   numberOf_labs      = var.numberOf_labs       # The number of VCNs to create
   label_prefix       = lower(var.label_prefix) # A string that will be prepended to all resources
   tags               = var.tags                # A simple key-value pairs to tag the resources created
