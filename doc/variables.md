@@ -68,8 +68,8 @@ Specific parameter to configure the Trivadis LAB environment.
 | `numberOf_labs` | Number of similar lab environments to be created. Default just one environment. This is used to build several identical environments for a training and laboratory environment. |        | 1                |
 | `lab_domain`       | The domain name of the LAB environment. This is used to register the public IP address of the bastion host.                               |        | trivadislabs.com |
 | `lab_dns_hostnum`  | The host number for the Trivadis LAB DNS server. This number is used to build the IP address using cidrhost function.                     |        | 4                |
-| `custom_dns_servers`  | List of DNS server for the private network. Default it use `tvd_private_dns` and `lab_public_dns`         |        |           |
-| `tvd_private_dns`  | A private DNS IP address for the training environment. Default means that it will be created based on `lab_dns_hostnum`                   |        | default          |
+| `custom_dns_servers`  | List of DNS server for the private network. Default it use `lab_private_dns` and `lab_public_dns`         |        |           |
+| `lab_private_dns`  | A private DNS IP address for the training environment. Default means that it will be created based on `lab_dns_hostnum`                   |        | default          |
 | `lab_public_dns`   | A public DNS IP address for the training environment.                                                                                     |        | 8.8.8.8          |
 
 ## Local Variables

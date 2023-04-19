@@ -213,7 +213,7 @@ variable "custom_dns_servers" {
   default     = []
 }
 
-variable "tvd_private_dns" {
+variable "lab_private_dns" {
   description = "A private DNS IP address for the training environment"
   type        = string
   default     = "default"
