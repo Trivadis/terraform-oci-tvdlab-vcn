@@ -14,8 +14,11 @@
 #              at http://www.apache.org/licenses/
 # ------------------------------------------------------------------------------
 module "tvdlab-vcn" {
-  source  = "Trivadis/tvdlab-vcn/oci"
-  version = ">= 3.3.0" # to limit module version specifiy upper / lower version = ">= 0.5.0, < 2.0.0"
+  source = "Trivadis/tvdlab-vcn/oci"
+  # limit module version using ~>, allows only the rightmost version component to increment
+  # e.g. 3.3.2 and 3.3.10 but not 3.4.0 see
+  # https://developer.hashicorp.com/terraform/language/expressions/version-constraints
+  version = "~> 3.3.0"
 
   # - Mandatory Parameters -----------------------------------------------------
   compartment_id = var.compartment_ocid
